@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(parkapp LANGUAGES CXX)
+project(flutter_application_2 LANGUAGES CXX)
 
-set(BINARY_NAME "parkapp")
+set(BINARY_NAME "flutter_application_2")
 
 cmake_policy(SET CMP0063 NEW)
 

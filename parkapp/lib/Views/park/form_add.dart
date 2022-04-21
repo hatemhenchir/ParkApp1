@@ -1,31 +1,16 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/constants.dart';
 
 
-class Login extends StatelessWidget {
-  const Login({Key? key}):super(key: key);
+class FormAddPark extends StatelessWidget {
+  const FormAddPark({Key? key}):super(key: key);
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-     appBar: AppBar(
-       backgroundColor: Colors.white,
-       elevation: 0,
-       iconTheme: const IconThemeData(color: Colors.black),
-       centerTitle: true,
-
-       title: const Text(
-         "Sign In",
-         
-         style: TextStyle(
-           color: Color(0XFFB0BEC5),
-           fontSize: 22 ,
-           
-           
-          ),
-        ),
-      ),
+      
 
       body: Container(
         
@@ -35,43 +20,40 @@ class Login extends StatelessWidget {
           
 
           child:Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25 ),
+            padding: const EdgeInsets.symmetric(horizontal: 10 ),
           child:SingleChildScrollView(
             child:Column(
             
             children: [
-              const SizedBox(height: 25,),
+              const SizedBox(height: 50,),
               const Text(
-                "Welcome Back" , 
+                "Add Parking" , 
                  style: TextStyle(
                  color: Colors.black,
                  fontSize: 30,
-                 fontWeight: FontWeight.bold
+                 fontWeight: FontWeight.bold,
                  ),
                ),
-              const SizedBox(height: 15,),
+              const SizedBox(height: 5,),
                const Text(
-               "Sign in with your email and password ",
+               "Complete your parking details ",
                textAlign: TextAlign.center,
+               
                ),
-              const SizedBox(height: 25,),
+              const SizedBox(height: 20,),
                const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
                const SignForm(),
 
                const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-               const SizedBox(height: 30,),
+               const SizedBox(height: 20,),
                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: const [
-                   Text("Don't have an account? ",
+                   Text("By continuing you confirm that you agree \n with our Term and Condition  ",
                    style: TextStyle(
                      fontSize: 16
                    ) ,),
-                   Text("Sign Up ",
-                   style: TextStyle(
-                     fontSize: 16,
-                     color: Color(0XFF6A1B9A)
-                   ) ,)
+                   
                  ],
                )
                
@@ -95,8 +77,10 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
-  String? email;
-  String? password;
+  
+  
+  String? tarif;
+  
   final List<String> errors = [];
   @override
   Widget build(BuildContext context) {
@@ -104,10 +88,13 @@ class _SignFormState extends State<SignForm> {
       key: _formKey,
       child:Column(
         children: [
-         buildEmailFormField(),
-         const SizedBox(height: 40,),
-         buildPassFormField(),
-         const SizedBox(height: 40,),
+         
+         
+         
+         buildTarifFormField(),
+         const SizedBox(height: 30,),
+         
+         
          FormError(errors: errors),
       
 
@@ -138,71 +125,24 @@ class _SignFormState extends State<SignForm> {
       
     );}
 
-  TextFormField buildEmailFormField(){
-    return TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            onChanged: (newValue)=> email=newValue,
-           
-            
-            validator: (value){
-              if (value!.isEmpty && !errors.contains(kEmailNullError)){
-                setState(() {
-                  errors.add(kEmailNullError);
-                });
-                
-              } else if (!emailValidatorRegExp.hasMatch(value) && !errors.contains(kInvalidEmailError)){
-                setState(() {
-                  errors.add(kInvalidEmailError);
-                });
-                return "";
-              }
-              return "";
-            },
+  
             
               
-            decoration: InputDecoration(
-              labelText: "Email",
-              hintText: "Enter your email",
-              floatingLabelBehavior: FloatingLabelBehavior.always, 
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 42, vertical: 20
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(28),
-                gapPadding: 10,
-                borderSide: const BorderSide(color: Color(0xFF757575))
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(28),
-                borderSide: const BorderSide(color: Color(0xFF757575)),
-                gapPadding: 10,
-              ),
-            ),
-          );}
+           
 
-          TextFormField buildPassFormField(){
+    TextFormField buildTarifFormField(){
             return TextFormField(
             
-              obscureText: true,
-              onChanged: (newValue) => password = newValue,
               
-               validator: (value){
-               if (value!.isEmpty && !errors.contains(kPassNullError)){
-                setState(() {
-                  errors.add(kPassNullError);
-                });
-                return "";
-                
-               } else if (value.length < 8 && !errors.contains(kShortPassError)){
-                setState(() {
-                  errors.add(kShortPassError);
-                });
-               }
-               return "";
+              onSaved: (newValue) => tarif = newValue,
+              onChanged: (value){
+               
                },
+               
+               
              decoration: InputDecoration(
-              labelText: "Password",
-              hintText: "Enter your password",
+              labelText: "Tarif",
+              hintText: "enter tarif ",
               floatingLabelBehavior: FloatingLabelBehavior.always, 
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 42, vertical: 20),
@@ -212,15 +152,20 @@ class _SignFormState extends State<SignForm> {
                 gapPadding: 10,
                 borderSide: const BorderSide(color: Color(0xFF757575))
                ),
-              focusedBorder: OutlineInputBorder(
+             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(28),
                 borderSide: const BorderSide(color: Color(0xFF757575)),
                 gapPadding: 10,
 
                )
             ),
-    );
-        }}
+            
+    );}
+   
+
+     
+    
+}
   
 
 class FormError extends StatelessWidget {

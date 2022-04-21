@@ -1,9 +1,12 @@
 //import 'dart:html';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Views/login.dart';
 
-class Body extends StatelessWidget {
-  const Body({Key? key}):super(key: key);
+class Intro extends StatelessWidget {
+  const Intro({Key? key}):super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     
@@ -22,29 +25,29 @@ class Body extends StatelessWidget {
                   const Spacer(),
                   
                   Text(
-                    "Easy Park",
+                    "ANPR Park",
                     style: TextStyle(
                       fontSize: 40,
                       color: Colors.purple[800],
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "Welcome to Easy Park , Let's Park!" , 
+                  const Text(
+                    "Welcome to ANPR Park , Let's Park!" , 
                     style: TextStyle (
                     fontSize: 25 , 
                     color: Colors.black87
                     ),
                   ),
 
-                  Spacer(),
+                  const Spacer(),
 
                   
                   Image.asset("lib/img/park3.png",
             
                   ),
 
-                  Spacer(),
+                  const Spacer(),
 
                   
                   
@@ -59,8 +62,12 @@ class Body extends StatelessWidget {
                     ),
                     
                     
-                    onPressed: () {}, 
-                    child: Text(
+                    onPressed: (
+                      
+                    ) {
+                      
+                    }, 
+                    child: const Text(
                       "Let's Go!" ,
                       style: TextStyle(
                         fontSize: 20,

@@ -69,6 +69,7 @@ flutter:
     - assets/icons/
     
     - lib/img/park3.png
+    - lib/img/user_img.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -81,12 +82,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  #fonts:
-  #  - family: Muli
-  #    fonts:
-  #      - asset: assets/fonts/muli/Muli.ttf
-  #      - asset: assets/fonts/muli/Muli-Bold.ttf
-  #        weight : 700
+  fonts:
+    - family: Muli
+      fonts:
+        #- asset: assets/muli/Muli.ttf
+        - asset: assets/muli/Cutive-Regular.ttf
+          weight : 700
   #   - family: Trajan Pro
   #    fonts:
   #      - asset: assets/fonts/muli/Muli-Bold.ttf

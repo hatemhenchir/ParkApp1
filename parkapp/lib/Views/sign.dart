@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/constants.dart';
 
 
-class Login extends StatelessWidget {
-  const Login({Key? key}):super(key: key);
+class Body extends StatelessWidget {
+  const Body({Key? key}):super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class Login extends StatelessWidget {
        centerTitle: true,
 
        title: const Text(
-         "Sign In",
+         "Sign Up",
          
          style: TextStyle(
            color: Color(0XFFB0BEC5),
@@ -35,43 +35,40 @@ class Login extends StatelessWidget {
           
 
           child:Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25 ),
+            padding: const EdgeInsets.symmetric(horizontal: 10 ),
           child:SingleChildScrollView(
             child:Column(
             
             children: [
-              const SizedBox(height: 25,),
+              const SizedBox(height: 5,),
               const Text(
-                "Welcome Back" , 
+                "Register Account" , 
                  style: TextStyle(
                  color: Colors.black,
                  fontSize: 30,
-                 fontWeight: FontWeight.bold
+                 fontWeight: FontWeight.bold,
                  ),
                ),
-              const SizedBox(height: 15,),
+              const SizedBox(height: 5,),
                const Text(
-               "Sign in with your email and password ",
+               "Complete your details ",
                textAlign: TextAlign.center,
+               
                ),
-              const SizedBox(height: 25,),
+              const SizedBox(height: 5,),
                const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
                const SignForm(),
 
                const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-               const SizedBox(height: 30,),
+               const SizedBox(height: 10,),
                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: const [
-                   Text("Don't have an account? ",
+                   Text("By continuing you confirm that you agree \n with our Term and Condition  ",
                    style: TextStyle(
                      fontSize: 16
                    ) ,),
-                   Text("Sign Up ",
-                   style: TextStyle(
-                     fontSize: 16,
-                     color: Color(0XFF6A1B9A)
-                   ) ,)
+                   
                  ],
                )
                
@@ -95,8 +92,11 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
+  String? name;
   String? email;
   String? password;
+  String? confirmPassword;
+  String? phone;
   final List<String> errors = [];
   @override
   Widget build(BuildContext context) {
@@ -104,10 +104,16 @@ class _SignFormState extends State<SignForm> {
       key: _formKey,
       child:Column(
         children: [
+         buildNameFormField(),
+         const SizedBox(height: 20,),
          buildEmailFormField(),
-         const SizedBox(height: 40,),
+         const SizedBox(height: 20,),
          buildPassFormField(),
-         const SizedBox(height: 40,),
+         const SizedBox(height: 20,),
+         buildConfirmPassFormField(),
+         const SizedBox(height: 20),
+         buildPhonetFormField(),
+         const SizedBox(height: 20,),
          FormError(errors: errors),
       
 
@@ -138,11 +144,49 @@ class _SignFormState extends State<SignForm> {
       
     );}
 
+  TextFormField buildNameFormField(){
+    return TextFormField(
+            
+            onChanged: (newValue)=> name=newValue,
+            
+
+            
+            validator: (value){
+              if (value!.isEmpty && !errors.contains(kNameNullError)){
+                setState(() {
+                  errors.add(kNameNullError);
+                });
+                
+              } 
+              return "";
+            },
+            
+              
+            decoration: InputDecoration(
+              labelText: "Name",
+              hintText: "Enter your name",
+              floatingLabelBehavior: FloatingLabelBehavior.always, 
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 42, vertical: 20
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(28),
+                gapPadding: 10,
+                borderSide: const BorderSide(color: Color(0xFF757575))
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: const BorderSide(color: Color(0xFF757575)),
+                gapPadding: 10,
+              ),
+            ),
+          );}
+
   TextFormField buildEmailFormField(){
     return TextFormField(
             keyboardType: TextInputType.emailAddress,
             onChanged: (newValue)=> email=newValue,
-           
+            
             
             validator: (value){
               if (value!.isEmpty && !errors.contains(kEmailNullError)){
@@ -219,8 +263,89 @@ class _SignFormState extends State<SignForm> {
 
                )
             ),
+    );}
+
+    TextFormField buildConfirmPassFormField(){
+            return TextFormField(
+            
+              obscureText: true,
+              onChanged: (newValue) => confirmPassword = newValue,
+              
+               validator: (value){
+               if (value!.isEmpty ){
+                 setState(() {
+                   errors.add(kPassNullError);
+                 });
+               
+                return "";
+                
+               } else if (password!= value){
+                setState(() {
+                  errors.add(kMatchPassError);
+                });
+               }
+               return "";
+               },
+             decoration: InputDecoration(
+              labelText: "Confirm Password",
+              hintText: "Re-enter your password",
+              floatingLabelBehavior: FloatingLabelBehavior.always, 
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 42, vertical: 20),
+
+                enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(28),
+                gapPadding: 10,
+                borderSide: const BorderSide(color: Color(0xFF757575))
+               ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(28),
+                borderSide: const BorderSide(color: Color(0xFF757575)),
+                gapPadding: 10,
+
+               )
+            ),
+    );}
+
+    TextFormField buildPhonetFormField(){
+            return TextFormField(
+            
+              
+              onChanged: (newValue) => phone = newValue,
+              
+               validator: (value){
+               if (value!.isEmpty){
+                setState(() {
+                  errors.add(kPhoneNullError);
+                });
+                return "";
+                
+               }
+               
+               }, 
+               
+             decoration: InputDecoration(
+              labelText: "Phone Number",
+              hintText: "Enter your phone number",
+              floatingLabelBehavior: FloatingLabelBehavior.always, 
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 42, vertical: 20),
+
+                enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(28),
+                gapPadding: 10,
+                borderSide: const BorderSide(color: Color(0xFF757575))
+               ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(28),
+                borderSide: const BorderSide(color: Color(0xFF757575)),
+                gapPadding: 10,
+
+               )
+            ),
     );
-        }}
+        }
+      }
   
 
 class FormError extends StatelessWidget {

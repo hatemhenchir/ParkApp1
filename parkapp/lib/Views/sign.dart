@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/constants.dart';
+import 'package:flutter_application_2/Views/login.dart';
 
 
 class Body extends StatelessWidget {
@@ -92,6 +95,19 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _name =TextEditingController();
+  final TextEditingController _email =TextEditingController();
+  final TextEditingController _password =TextEditingController();
+  final TextEditingController _confirmPassword =TextEditingController();
+  final TextEditingController _phone =TextEditingController();
+   @override
+  void dispose(){
+    _name.dispose();
+    _email.dispose();
+    _password.dispose();
+    _confirmPassword.dispose();
+    _phone.dispose();
+  }
   String? name;
   String? email;
   String? password;
@@ -120,9 +136,17 @@ class _SignFormState extends State<SignForm> {
 
 
       TextButton(
-        onPressed: (){
+        onPressed: () async {
           if(_formKey.currentState!.validate()){
-            _formKey.currentState!.save();
+            var result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email.text, password: _password.text) ;
+            if (result!=null){
+               await FirebaseFirestore.instance.collection("utilisateur").doc(result.user!.uid).set({
+                'name':_name.text,
+                'email':_email.text,
+                'phone':_phone.text
+              });
+              Navigator.push(context,MaterialPageRoute(builder:(context)=>Login()));
+            }
           }
         } ,
         child: const Text('Continue',) ,
@@ -146,19 +170,16 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildNameFormField(){
     return TextFormField(
+      controller: _name,
             
             onChanged: (newValue)=> name=newValue,
             
 
             
-            validator: (value){
-              if (value!.isEmpty && !errors.contains(kNameNullError)){
-                setState(() {
-                  errors.add(kNameNullError);
-                });
-                
-              } 
-              return "";
+            validator:(value){
+              if(value!.isEmpty){
+                return 'please Fill name input';
+              }
             },
             
               
@@ -184,23 +205,15 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildEmailFormField(){
     return TextFormField(
+      controller: _email,
             keyboardType: TextInputType.emailAddress,
             onChanged: (newValue)=> email=newValue,
             
             
-            validator: (value){
-              if (value!.isEmpty && !errors.contains(kEmailNullError)){
-                setState(() {
-                  errors.add(kEmailNullError);
-                });
-                
-              } else if (!emailValidatorRegExp.hasMatch(value) && !errors.contains(kInvalidEmailError)){
-                setState(() {
-                  errors.add(kInvalidEmailError);
-                });
-                return "";
+            validator:(value){
+              if(value!.isEmpty){
+                return 'please Fill email input';
               }
-              return "";
             },
             
               
@@ -226,24 +239,16 @@ class _SignFormState extends State<SignForm> {
 
           TextFormField buildPassFormField(){
             return TextFormField(
+              controller: _password,
             
               obscureText: true,
               onChanged: (newValue) => password = newValue,
               
-               validator: (value){
-               if (value!.isEmpty && !errors.contains(kPassNullError)){
-                setState(() {
-                  errors.add(kPassNullError);
-                });
-                return "";
-                
-               } else if (value.length < 8 && !errors.contains(kShortPassError)){
-                setState(() {
-                  errors.add(kShortPassError);
-                });
-               }
-               return "";
-               },
+               validator:(value){
+              if(value!.isEmpty){
+                return 'please Fill password input';
+              }
+            },
              decoration: InputDecoration(
               labelText: "Password",
               hintText: "Enter your password",
@@ -267,25 +272,16 @@ class _SignFormState extends State<SignForm> {
 
     TextFormField buildConfirmPassFormField(){
             return TextFormField(
+              controller: _confirmPassword,
             
               obscureText: true,
               onChanged: (newValue) => confirmPassword = newValue,
               
-               validator: (value){
-               if (value!.isEmpty ){
-                 setState(() {
-                   errors.add(kPassNullError);
-                 });
-               
-                return "";
-                
-               } else if (password!= value){
-                setState(() {
-                  errors.add(kMatchPassError);
-                });
-               }
-               return "";
-               },
+               validator:(value){
+              if(value!.isEmpty){
+                return 'please Fill confirm password input';
+              }
+            },
              decoration: InputDecoration(
               labelText: "Confirm Password",
               hintText: "Re-enter your password",
@@ -309,20 +305,16 @@ class _SignFormState extends State<SignForm> {
 
     TextFormField buildPhonetFormField(){
             return TextFormField(
+              controller: _phone,
             
               
               onChanged: (newValue) => phone = newValue,
               
-               validator: (value){
-               if (value!.isEmpty){
-                setState(() {
-                  errors.add(kPhoneNullError);
-                });
-                return "";
-                
-               }
-               
-               }, 
+               validator:(value){
+              if(value!.isEmpty){
+                return 'please Fill phone input';
+              }
+            },
                
              decoration: InputDecoration(
               labelText: "Phone Number",

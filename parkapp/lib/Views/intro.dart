@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Views/chose_account.dart';
 import 'package:flutter_application_2/Views/login.dart';
 
 class Intro extends StatelessWidget {
@@ -49,7 +50,9 @@ class Intro extends StatelessWidget {
 
                   const Spacer(),
 
-                  
+                 
+
+              
                   
                   TextButton(
                     style: TextButton.styleFrom(
@@ -65,7 +68,7 @@ class Intro extends StatelessWidget {
                     onPressed: (
                       
                     ) {
-                      
+                      Navigator.push(context, MaterialPageRoute(builder:(context)=> ChoseAccount()));
                     }, 
                     child: const Text(
                       "Let's Go!" ,

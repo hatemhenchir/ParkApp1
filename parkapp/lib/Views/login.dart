@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Views/app_bar.dart';
+import 'package:flutter_application_2/Views/chose_account.dart';
 import 'package:flutter_application_2/Views/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_application_2/Views/intro.dart';
+import 'package:flutter_application_2/Views/sign.dart';
 
 
 class Login extends StatelessWidget {
   const Login({Key? key}):super(key: key);
   
+  
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
 
      appBar: AppBar(
@@ -62,16 +70,20 @@ class Login extends StatelessWidget {
                const SizedBox(height: 30,),
                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
-                 children: const [
+                 children:  [
                    Text("Don't have an account? ",
                    style: TextStyle(
                      fontSize: 16
                    ) ,),
-                   Text("Sign Up ",
+                   GestureDetector(
+                     onTap:() =>  Navigator.push(context, MaterialPageRoute(builder:(context)=> Sign())),
+                     child:Text("Sign Up ",
                    style: TextStyle(
                      fontSize: 16,
                      color: Color(0XFF6A1B9A)
                    ) ,)
+                   ),
+                   
                  ],
                )
                
@@ -95,6 +107,13 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController _emailcontroller=TextEditingController();
+  TextEditingController _passwordcontroller=TextEditingController();
+  @override
+  void dispose(){
+    _emailcontroller.dispose();
+    _passwordcontroller.dispose();
+  }
   String? email;
   String? password;
   final List<String> errors = [];
@@ -114,9 +133,15 @@ class _SignFormState extends State<SignForm> {
 
 
       TextButton(
-        onPressed: (){
+        onPressed: () async{
           if(_formKey.currentState!.validate()){
-            _formKey.currentState!.save();
+            var result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailcontroller.text,password: _passwordcontroller.text);
+            if(result!=null){
+              Navigator.push(context,MaterialPageRoute(builder:(context)=>AppHome()));
+            }else{
+              print("no  user founnd");
+            }
+            //_formKey.currentState!.save();
           }
         } ,
         child: const Text('Continue',) ,
@@ -140,23 +165,15 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildEmailFormField(){
     return TextFormField(
+      controller: _emailcontroller,
             keyboardType: TextInputType.emailAddress,
             onChanged: (newValue)=> email=newValue,
            
             
-            validator: (value){
-              if (value!.isEmpty && !errors.contains(kEmailNullError)){
-                setState(() {
-                  errors.add(kEmailNullError);
-                });
-                
-              } else if (!emailValidatorRegExp.hasMatch(value) && !errors.contains(kInvalidEmailError)){
-                setState(() {
-                  errors.add(kInvalidEmailError);
-                });
-                return "";
+            validator:(value){
+              if(value!.isEmpty){
+                return 'please Fill email input';
               }
-              return "";
             },
             
               
@@ -182,24 +199,16 @@ class _SignFormState extends State<SignForm> {
 
           TextFormField buildPassFormField(){
             return TextFormField(
+              controller: _passwordcontroller,
             
               obscureText: true,
               onChanged: (newValue) => password = newValue,
               
-               validator: (value){
-               if (value!.isEmpty && !errors.contains(kPassNullError)){
-                setState(() {
-                  errors.add(kPassNullError);
-                });
-                return "";
-                
-               } else if (value.length < 8 && !errors.contains(kShortPassError)){
-                setState(() {
-                  errors.add(kShortPassError);
-                });
-               }
-               return "";
-               },
+               validator:(value){
+              if(value!.isEmpty){
+                return 'please Fill password input';
+              }
+            },
              decoration: InputDecoration(
               labelText: "Password",
               hintText: "Enter your password",

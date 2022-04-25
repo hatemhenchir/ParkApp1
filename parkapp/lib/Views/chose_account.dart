@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Views/login.dart';
 
  class ChoseAccount  extends StatelessWidget {
   const ChoseAccount({ Key? key }) : super(key: key);
@@ -16,7 +17,7 @@ import 'package:flutter/material.dart';
        centerTitle: true,
 
        title: const Text(
-         "Choisir compte",
+         "Choose Account",
          
          style: TextStyle(
            color: Color(0XFFB0BEC5),
@@ -49,9 +50,11 @@ import 'package:flutter/material.dart';
                         borderRadius: BorderRadius.circular(20)
                       )
                     ),
-                 onPressed:(){}, 
+                 onPressed:(){
+                   Navigator.push(context, MaterialPageRoute(builder:(context)=> Login()));
+                 }, 
                  child:
-                   const Text("                Visiteur                ",style: TextStyle(
+                   const Text("       Visitor         ",style: TextStyle(
                         fontSize: 25,
                       ),),
                   ),
@@ -69,7 +72,7 @@ import 'package:flutter/material.dart';
                  onPressed:(){}, 
                
                  child:
-                 const Text("  Propriétaire d'un parking  ",style: TextStyle(
+                 const Text("  Parking Owner  ",style: TextStyle(
                         fontSize: 25,
                       ),),
                ),

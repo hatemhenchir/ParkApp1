@@ -14,31 +14,34 @@ import 'package:provider/provider.dart';
   
   }
  class _SearchState extends State<Search> {
+   
    @override
    Widget build(BuildContext context) {
+     final currentPosition=Provider.of<Position?>(context);
      
 
      return Scaffold(
 
-       body: Column (
+       body:(currentPosition!=null)? Column (
         
          children: [
            
            Container (
              height: MediaQuery.of(context).size.height/2,
              width:  MediaQuery.of(context).size.width,
-             child: const GoogleMap(
+             child:  GoogleMap(
                 mapType: MapType.normal,
                
                initialCameraPosition: CameraPosition(
-                 target:LatLng(36.806389,10.181667 , ),
+                 target:LatLng(currentPosition.latitude,currentPosition.longitude ),
                  zoom: 30.0,
                  ) ,
+                 zoomGesturesEnabled: true,
                 ),
              ),
            
          ],
-       ),
+       ):Center(child: CircularProgressIndicator(),)
        
      );
    }

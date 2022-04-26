@@ -5,20 +5,14 @@ import 'package:flutter_application_2/Views/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_2/Views/intro.dart';
-<<<<<<< HEAD
 import 'package:flutter_application_2/Views/sign.dart';
-=======
->>>>>>> 4b246c60c2a929e0ebb3ba05aa6df646a5f8e5fd
 
 
 class Login extends StatelessWidget {
   const Login({Key? key}):super(key: key);
   
   
-<<<<<<< HEAD
-=======
   
->>>>>>> 4b246c60c2a929e0ebb3ba05aa6df646a5f8e5fd
   @override
   Widget build(BuildContext context) {
     
@@ -144,11 +138,7 @@ class _SignFormState extends State<SignForm> {
           if(_formKey.currentState!.validate()){
             var result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailcontroller.text,password: _passwordcontroller.text);
             if(result!=null){
-<<<<<<< HEAD
               Navigator.push(context,MaterialPageRoute(builder:(context)=>AppHome()));
-=======
-              Navigator.push(context,MaterialPageRoute(builder:(context)=>Intro()));
->>>>>>> 4b246c60c2a929e0ebb3ba05aa6df646a5f8e5fd
             }else{
               print("no  user founnd");
             }

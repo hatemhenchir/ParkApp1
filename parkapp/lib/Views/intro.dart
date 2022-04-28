@@ -68,7 +68,7 @@ class Intro extends StatelessWidget {
                     onPressed: (
                       
                     ) {
-                      Navigator.push(context, MaterialPageRoute(builder:(context)=> ChoseAccount()));
+                      Navigator.push(context, MaterialPageRoute(builder:(context)=> Login()));
                     }, 
                     child: const Text(
                       "Let's Go!" ,

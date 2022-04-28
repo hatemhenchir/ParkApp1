@@ -2,23 +2,26 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/constants.dart';
 
+import 'package:provider/provider.dart';
+
 
 class FormAddPark extends StatelessWidget {
   const FormAddPark({Key? key}):super(key: key);
   
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-
+    
       
-
+    
       body: Container(
         
         
         child: SizedBox(
           width: double.infinity,
           
-
+    
           child:Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10 ),
           child:SingleChildScrollView(
@@ -43,7 +46,7 @@ class FormAddPark extends StatelessWidget {
               const SizedBox(height: 20,),
                const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
                const SignForm(),
-
+    
                const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
                const SizedBox(height: 20,),
                Row(
@@ -57,10 +60,10 @@ class FormAddPark extends StatelessWidget {
                  ],
                )
                
-
+    
            ]),
         
-
+    
         ),
       
     ),
@@ -90,7 +93,7 @@ class _SignFormState extends State<SignForm> {
         children: [
          
          
-         
+         Image.asset("lib/img/park3.png"),
          buildTarifFormField(),
          const SizedBox(height: 30,),
          
@@ -136,7 +139,7 @@ class _SignFormState extends State<SignForm> {
               
               onSaved: (newValue) => tarif = newValue,
               onChanged: (value){
-               
+                 
                },
                
                

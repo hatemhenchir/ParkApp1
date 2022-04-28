@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_2/Views/chose_account.dart';
@@ -6,10 +5,9 @@ import 'package:flutter_application_2/Views/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_2/Views/intro.dart';
-import 'package:flutter_application_2/Views/park_owner/choice_activity.dart';
 
 import 'package:flutter_application_2/Views/visitor/app_bar.dart';
-import 'package:flutter_application_2/Views/sign.dart';
+import 'package:flutter_application_2/Views/visitor/sign.dart';
 
 
 class Login extends StatelessWidget {
@@ -141,17 +139,7 @@ class _SignFormState extends State<SignForm> {
           if(_formKey.currentState!.validate()){
             var result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailcontroller.text,password: _passwordcontroller.text);
             if(result!=null){
-              final User? user = FirebaseAuth.instance.currentUser;
-              final  userId=user!.uid;
-              await FirebaseFirestore.instance.collection("utilisateur").doc(userId).get().then((DocumentSnapshot snapshot){setState(() {
-                if(snapshot.get("role")=='proprietaire'){
-                    Navigator.push(context,MaterialPageRoute(builder:(context)=> Choice()));
-                }
-                else if(snapshot.get("role")=="visiteur"){
-                  Navigator.push(context,MaterialPageRoute(builder:(context)=>AppHome()));
-                }
-              });} );
-              //Navigator.push(context,MaterialPageRoute(builder:(context)=>AppHome()));
+              Navigator.push(context,MaterialPageRoute(builder:(context)=>AppHome()));
             }else{
               print("no  user founnd");
             }

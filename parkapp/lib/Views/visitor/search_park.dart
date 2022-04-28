@@ -3,7 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-//import '../services/geolocator_service.dart';
+
 
 
   class Search extends StatefulWidget {
@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
   
   }
  class _SearchState extends State<Search> {
-   
+
    @override
    Widget build(BuildContext context) {
      final currentPosition=Provider.of<Position?>(context);
@@ -22,18 +22,20 @@ import 'package:provider/provider.dart';
 
      return Scaffold(
 
-       body:(currentPosition!=null)? Column (
+      body:(currentPosition!=null)? Column (
         
          children: [
            
            Container (
-             height: MediaQuery.of(context).size.height/2,
+             height: MediaQuery.of(context).size.height/1.2,
              width:  MediaQuery.of(context).size.width,
              child:  GoogleMap(
                 mapType: MapType.normal,
                
                initialCameraPosition: CameraPosition(
-                 target:LatLng(currentPosition.latitude,currentPosition.longitude ),
+                 target:LatLng(
+                   currentPosition.latitude,
+                 currentPosition.longitude ),
                  zoom: 30.0,
                  ) ,
                  zoomGesturesEnabled: true,
@@ -41,8 +43,10 @@ import 'package:provider/provider.dart';
              ),
            
          ],
-       ):Center(child: CircularProgressIndicator(),)
        
-     );
-   }
+       
+     
+     ):Center(child: CircularProgressIndicator(),)
+   );
+ }
  }

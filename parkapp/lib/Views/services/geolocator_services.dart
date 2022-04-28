@@ -6,4 +6,4 @@ class GeoLocatorService{
     var geolocator = Geolocator();
     return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   }
-}
+} 

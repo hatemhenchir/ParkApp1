@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Views/park_owner/choice_activity.dart';
+
 import 'package:flutter_application_2/Views/login.dart';
 
  class ChoseAccount  extends StatelessWidget {
@@ -69,7 +71,9 @@ import 'package:flutter_application_2/Views/login.dart';
                         borderRadius: BorderRadius.circular(20),
                       )
                     ),
-                 onPressed:(){}, 
+                 onPressed:(){
+                   Navigator.push(context, MaterialPageRoute(builder:(context)=> Choice()));
+                 }, 
                
                  child:
                  const Text("  Parking Owner  ",style: TextStyle(

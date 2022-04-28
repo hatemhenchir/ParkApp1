@@ -2,13 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/constants.dart';
-import 'package:flutter_application_2/Views/login.dart';
+import 'package:flutter_application_2/Views/visitor/login.dart';
 
- //enum person {visiteur , proprietaire}
 
 class Sign extends StatelessWidget {
-    Sign({Key? key}):super(key: key);
-
+  const Sign({Key? key}):super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,30 +42,38 @@ class Sign extends StatelessWidget {
           child:SingleChildScrollView(
             child:Column(
             
-            children:  [
-              SizedBox(height: 5,),
+            children: [
+              const SizedBox(height: 5,),
               const Text(
                 "Register Account" , 
                  style: TextStyle(
                  color: Colors.black,
                  fontSize: 30,
                  fontWeight: FontWeight.bold,
-                 
                  ),
                ),
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
                const Text(
                "Complete your details ",
                textAlign: TextAlign.center,
                
                ),
-              SizedBox(height: 5,),
-               Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-               SignForm(),
+              const SizedBox(height: 5,),
+               const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+               const SignForm(),
 
-               Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-               SizedBox(height: 10,),
-               
+               const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+               const SizedBox(height: 10,),
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: const [
+                   Text("By continuing you confirm that you agree \n with our Term and Condition  ",
+                   style: TextStyle(
+                     fontSize: 16
+                   ) ,),
+                   
+                 ],
+               )
                
 
            ]),
@@ -80,8 +87,8 @@ class Sign extends StatelessWidget {
 }
 
 class SignForm extends StatefulWidget {
-   SignForm({ Key? key }) : super(key: key);
-    
+  const SignForm({ Key? key }) : super(key: key);
+
   @override
   _SignFormState createState() => _SignFormState();
 }
@@ -93,9 +100,6 @@ class _SignFormState extends State<SignForm> {
   final TextEditingController _password =TextEditingController();
   final TextEditingController _confirmPassword =TextEditingController();
   final TextEditingController _phone =TextEditingController();
-  
-  String? _person ;
-
    @override
   void dispose(){
     _name.dispose();
@@ -111,59 +115,25 @@ class _SignFormState extends State<SignForm> {
   String? phone;
   final List<String> errors = [];
   @override
-  
-    
   Widget build(BuildContext context) {
-
-     
-     
-     
-
     return Form(
       key: _formKey,
       child:Column(
         children: [
          buildNameFormField(),
-         const SizedBox(height: 18,),
+         const SizedBox(height: 20,),
          buildEmailFormField(),
-         const SizedBox(height: 18,),
+         const SizedBox(height: 20,),
          buildPassFormField(),
-         const SizedBox(height: 18,),
+         const SizedBox(height: 20,),
          buildConfirmPassFormField(),
-         const SizedBox(height: 18),
+         const SizedBox(height: 20),
          buildPhonetFormField(),
-         const SizedBox(height: 18,),
+         const SizedBox(height: 20,),
          FormError(errors: errors),
-         const SizedBox(height: 1,),
-       
-        RadioListTile(
-          activeColor: Colors.deepPurple,
-          title: const Text('visitor',style: TextStyle(fontSize: 20),),
-          value: "visiteur",
-          groupValue: _person,
-          onChanged: (String? value) {
-            setState(() {
-              
-              _person = value;
-              
-            });
-          },
-        ),
-        
-        RadioListTile(
-          activeColor: Colors.deepPurple,
-          title: const Text('Parking Owner' , style: TextStyle(fontSize: 20),),
-          value: "proprietaire",
-          groupValue: _person,
-          onChanged: (String? value) {
-            setState(() {
-              
-              _person = value;
-              
-            });
-          },
-        ),
-        
+      
+
+
 
       TextButton(
         onPressed: () async {
@@ -173,20 +143,19 @@ class _SignFormState extends State<SignForm> {
                await FirebaseFirestore.instance.collection("utilisateur").doc(result.user!.uid).set({
                 'name':_name.text,
                 'email':_email.text,
-                'phone':_phone.text,
-                'role':_person,
+                'phone':_phone.text
               });
               Navigator.push(context,MaterialPageRoute(builder:(context)=>Login()));
             }
           }
         } ,
-        child: const Text('Save',) ,
+        child: const Text('Continue',) ,
         
         style: TextButton.styleFrom(
           primary: Colors.white,
           backgroundColor: Colors.purple[800],
           elevation: 10,
-          textStyle: const TextStyle(fontSize: 25),
+          textStyle: const TextStyle(fontSize: 28),
           
           
           shape: RoundedRectangleBorder(

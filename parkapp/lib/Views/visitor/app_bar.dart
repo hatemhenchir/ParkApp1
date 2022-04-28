@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/chose_account.dart';
 import 'package:flutter_application_2/Views/intro.dart';
+
+
 import 'package:flutter_application_2/Views/login.dart';
-import 'package:flutter_application_2/Views/search_park.dart';
+import 'package:flutter_application_2/Views/visitor/search_park.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-//import '../services/geolocator_service.dart';
+
 
 
 class AppHome extends StatefulWidget {
@@ -20,7 +22,7 @@ class AppHome extends StatefulWidget {
 }
 
 class _AppHomeState extends State<AppHome> {
-  var currentPage = DrawerSections.Reservation;
+  var currentPage = DrawerSections.Find_park;
   @override
   Widget build(BuildContext context) {
     var container ;

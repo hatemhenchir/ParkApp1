@@ -7,12 +7,14 @@ import 'package:flutter_application_2/Views/intro.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_2/Views/login.dart';
 import 'package:flutter_application_2/Views/park_owner/choice_activity.dart';
+import 'package:flutter_application_2/Views/park_owner/form_updatePark.dart';
+import 'package:flutter_application_2/Views/park_owner/park.dart';
 import 'package:flutter_application_2/Views/services/geolocator_services.dart';
 import 'package:flutter_application_2/Views/visitor/app_bar.dart';
 import 'package:flutter_application_2/Views/sign.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_application_2/Views/park_owner/form_add.dart';
+import 'package:flutter_application_2/Views/park_owner/form_addPark.dart';
 
 
 void main() async {
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
       child:  MaterialApp(
         debugShowCheckedModeBanner: false,//supprimer debug icone in the interface
         title: 'flutter app',
-        home: Intro(),
+        home: ConsultPark(),
 
       ),
     );

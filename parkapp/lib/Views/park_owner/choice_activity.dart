@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/park_owner/park.dart';
 
-import 'package:flutter_application_2/Views/park_owner/parking.dart';
+
 
 class Choice extends StatelessWidget {
   
@@ -47,11 +47,11 @@ class Choice extends StatelessWidget {
                   if(e.id==1){
                    Navigator.push(context , MaterialPageRoute(builder: (_)=> ConsultPark()));
                   } else if (e.id==2){
-                    Navigator.push(context , MaterialPageRoute(builder: (_)=> Parking()));
+                    Navigator.push(context , MaterialPageRoute(builder: (_)=> ConsultPark()));
                   } else if (e.id==3){
-                    Navigator.push(context , MaterialPageRoute(builder: (_)=> Parking()));
+                    Navigator.push(context , MaterialPageRoute(builder: (_)=> ConsultPark()));
                   } else if (e.id==4){
-                    Navigator.push(context , MaterialPageRoute(builder: (_)=> Parking()));
+                    Navigator.push(context , MaterialPageRoute(builder: (_)=> ConsultPark()));
                   }
                   
                 },

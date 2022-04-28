@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/park_owner/database.dart';
-import 'package:flutter_application_2/Views/park_owner/form_add.dart';
+import 'package:flutter_application_2/Views/park_owner/form_addPark.dart';
+import 'package:flutter_application_2/Views/park_owner/form_updatePark.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
 
 
@@ -33,6 +35,7 @@ class _ConsultParkState extends State<ConsultPark> {
     initialise();
   }
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
@@ -63,8 +66,11 @@ class _ConsultParkState extends State<ConsultPark> {
             startActionPane: ActionPane(
               motion: ScrollMotion(),
               children: [
-                SlidableAction(
-                   onPressed:(BuildContext context) {} ,
+                 SlidableAction(
+                   onPressed:
+                   showDeleteAlert(context),
+                    
+                   
                    backgroundColor: Colors.deepOrange,
                    foregroundColor: Colors.white,
                    icon: Icons.delete,
@@ -72,7 +78,9 @@ class _ConsultParkState extends State<ConsultPark> {
                    
                 ),
                 SlidableAction(
-                   onPressed:(BuildContext context) {} ,
+                   onPressed:(BuildContext context) {
+                     Navigator.push(context, MaterialPageRoute(builder:(context)=> FormUpdatePark( )));
+                   } ,
                    backgroundColor: Colors.greenAccent,
                    foregroundColor: Colors.white,
                    icon: Icons.update_outlined,
@@ -82,16 +90,59 @@ class _ConsultParkState extends State<ConsultPark> {
                ],
             ),
             
+            
             child:ListTile(
                   title: Text("Tarif: "+docs[index]['tarif'] , style: TextStyle(fontSize: 20),),
                    minVerticalPadding: 20,
                   
                    
-                  trailing: Text("Adresse: "+docs[index]['adresse'] ,  style: TextStyle(fontSize: 20)),
+                  //trailing: Text("Adresse: "+docs[index]['adresse'] ,  style: TextStyle(fontSize: 20)),
                 ),
+                
+
             );
         }),
       
     );
+    
+    
   }
+
+  
 }
+
+   showDeleteAlert(BuildContext context) {
+    
+
+    Widget noButton = TextButton(
+      onPressed: (){
+        Navigator.pop(context);
+        
+      }, 
+      child: const Text("No" , style: TextStyle(
+        color:Colors.black ),)
+    );
+
+    Widget yesButton = TextButton(
+      onPressed: (){}, 
+      child: const Text("Yes" , style: TextStyle(
+        color:Colors.black ),)
+    );
+    AlertDialog alert = AlertDialog(
+      title: const Text("Message"),
+      content: const Text("Would you like to delete this parking ?"),
+      actions: [
+        noButton,
+        yesButton
+      ],
+    );
+    showDialog(
+      context: context, 
+      builder: (BuildContext context){
+        return alert;
+      }
+    );
+}
+  
+
+

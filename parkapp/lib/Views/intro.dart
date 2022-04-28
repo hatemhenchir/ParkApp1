@@ -1,8 +1,8 @@
-//import 'dart:html';
 
-import 'package:flutter/cupertino.dart';
+
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/Views/chose_account.dart';
+
 import 'package:flutter_application_2/Views/login.dart';
 
 class Intro extends StatelessWidget {
@@ -26,13 +26,14 @@ class Intro extends StatelessWidget {
                   const Spacer(),
                   
                   Text(
-                    "ANPR Park",
+                    "ANPR PARK",
                     style: TextStyle(
                       fontSize: 40,
                       color: Colors.purple[800],
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  SizedBox(height: 25,),
                   const Text(
                     "Welcome to ANPR Park , Let's Park!" , 
                     style: TextStyle (
@@ -71,7 +72,7 @@ class Intro extends StatelessWidget {
                       Navigator.push(context, MaterialPageRoute(builder:(context)=> Login()));
                     }, 
                     child: const Text(
-                      "Let's Go!" ,
+                      "  Let's Go!  " ,
                       style: TextStyle(
                         fontSize: 20,
                       ),

@@ -35,7 +35,7 @@ import 'package:provider/provider.dart';
                initialCameraPosition: CameraPosition(
                  target:LatLng(
                    currentPosition.latitude,
-                 currentPosition.longitude ),
+                   currentPosition.longitude ),
                  zoom: 30.0,
                  ) ,
                  zoomGesturesEnabled: true,

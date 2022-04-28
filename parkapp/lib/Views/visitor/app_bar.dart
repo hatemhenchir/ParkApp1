@@ -38,7 +38,7 @@ class _AppHomeState extends State<AppHome> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.teal,
         
       ),
       body: container,
@@ -105,15 +105,15 @@ class _AppHomeState extends State<AppHome> {
              Expanded(
               child: Icon(
                 icon ,
-                size: 20,
+                size: 30,
                 color: Colors.black,)
-                ),
+              ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: 
               Text(
                 title,
-              style: TextStyle(color: Colors.black,fontSize: 20),))
+              style: TextStyle(color: Colors.black,fontSize: 22),))
           ]) ,
         ),
       )
@@ -159,14 +159,14 @@ class _MyDrawerHeaderState extends State<MyHeaderDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.cyan[700],
+      color: Colors.teal,
       width: double.infinity,
-      height: 200,
+      height: 150,
       padding: EdgeInsets.only(top: 50.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          //Image.asset("lib/img/logo_park.png" ,height: 80, ),
+          
           Container(
             margin: EdgeInsets.only(bottom: 50),
             height: 50,

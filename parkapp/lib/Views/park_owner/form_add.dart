@@ -12,6 +12,12 @@ class FormAddPark extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.teal,
+        title: const Text(
+          "Add Parking" , 
+          textAlign: TextAlign.center,),
+      ),
     
       
     
@@ -27,38 +33,30 @@ class FormAddPark extends StatelessWidget {
           child:SingleChildScrollView(
             child:Column(
             
-            children: [
-              const SizedBox(height: 50,),
-              const Text(
-                "Add Parking" , 
-                 style: TextStyle(
-                 color: Colors.black,
-                 fontSize: 30,
-                 fontWeight: FontWeight.bold,
-                 ),
-               ),
-              const SizedBox(height: 5,),
-               const Text(
+            children: const [
+              SizedBox(height: 20,),
+              //Text(
+               // "Add Parking" , 
+                // style: TextStyle(
+                // color: Colors.black,
+                // fontSize: 30,
+                // fontWeight: FontWeight.bold,
+                // ),
+              // ),
+              SizedBox(height: 5,),
+               Text(
                "Complete your parking details ",
                textAlign: TextAlign.center,
+               style: TextStyle(fontSize: 25),
                
                ),
-              const SizedBox(height: 20,),
-               const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-               const SignForm(),
+              SizedBox(height: 5,),
+               Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+               SignForm(),
     
-               const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-               const SizedBox(height: 20,),
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: const [
-                   Text("By continuing you confirm that you agree \n with our Term and Condition  ",
-                   style: TextStyle(
-                     fontSize: 16
-                   ) ,),
-                   
-                 ],
-               )
+               Padding(padding: EdgeInsets.symmetric(vertical: 15)),
+               SizedBox(height: 20,),
+               
                
     
            ]),
@@ -93,7 +91,7 @@ class _SignFormState extends State<SignForm> {
         children: [
          
          
-         Image.asset("lib/img/park3.png"),
+         Image.asset("lib/img/add.jpg", width: 500,height: 250,),
          buildTarifFormField(),
          const SizedBox(height: 30,),
          
@@ -109,11 +107,11 @@ class _SignFormState extends State<SignForm> {
             _formKey.currentState!.save();
           }
         } ,
-        child: const Text('Continue',) ,
+        child: const Text('  Add  ',) ,
         
         style: TextButton.styleFrom(
           primary: Colors.white,
-          backgroundColor: Colors.purple[800],
+          backgroundColor: Colors.teal,
           elevation: 10,
           textStyle: const TextStyle(fontSize: 28),
           
@@ -141,8 +139,7 @@ class _SignFormState extends State<SignForm> {
               onChanged: (value){
                  
                },
-               
-               
+              
              decoration: InputDecoration(
               labelText: "Tarif",
               hintText: "enter tarif ",

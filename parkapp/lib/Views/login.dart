@@ -52,7 +52,7 @@ class Login extends StatelessWidget {
             child:Column(
             
             children: [
-              const SizedBox(height: 25,),
+              const SizedBox(height: 2,),
               const Text(
                 "Welcome Back" , 
                  style: TextStyle(
@@ -65,6 +65,9 @@ class Login extends StatelessWidget {
                const Text(
                "Sign in with your email and password ",
                textAlign: TextAlign.center,
+               style: TextStyle(
+                 fontSize: 20,
+               ),
                ),
               const SizedBox(height: 25,),
                const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
@@ -75,16 +78,17 @@ class Login extends StatelessWidget {
                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children:  [
-                   Text("Don't have an account? ",
+                   const Text("Don't have an account? ",
                    style: TextStyle(
                      fontSize: 16
                    ) ,),
                    GestureDetector(
                      onTap:() =>  Navigator.push(context, MaterialPageRoute(builder:(context)=> Sign())),
-                     child:Text("Sign Up ",
-                   style: TextStyle(
-                     fontSize: 16,
-                     color: Color(0XFF6A1B9A)
+                     child:const Text(
+                       "Sign Up ",
+                       style: TextStyle(
+                       fontSize: 18,
+                        color: Color.fromARGB(255, 112, 6, 131)
                    ) ,)
                    ),
                    

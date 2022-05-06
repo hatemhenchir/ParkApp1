@@ -35,7 +35,7 @@ class Intro extends StatelessWidget {
                   ),
                   SizedBox(height: 25,),
                   const Text(
-                    "Welcome to ANPR Park , Let's Park!" , 
+                    "Welcome to ANPR ParK, Let's Park!" , 
                     style: TextStyle (
                     fontSize: 25 , 
                     color: Colors.black87

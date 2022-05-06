@@ -68,7 +68,7 @@ class _ConsultParkState extends State<ConsultPark> {
               children: [
                  SlidableAction(
                    onPressed:
-                   showDeleteAlert(context),
+                   (BuildContext context){},
                     
                    
                    backgroundColor: Colors.deepOrange,
@@ -111,38 +111,7 @@ class _ConsultParkState extends State<ConsultPark> {
   
 }
 
-   showDeleteAlert(BuildContext context) {
-    
-
-    Widget noButton = TextButton(
-      onPressed: (){
-        Navigator.pop(context);
-        
-      }, 
-      child: const Text("No" , style: TextStyle(
-        color:Colors.black ),)
-    );
-
-    Widget yesButton = TextButton(
-      onPressed: (){}, 
-      child: const Text("Yes" , style: TextStyle(
-        color:Colors.black ),)
-    );
-    AlertDialog alert = AlertDialog(
-      title: const Text("Message"),
-      content: const Text("Would you like to delete this parking ?"),
-      actions: [
-        noButton,
-        yesButton
-      ],
-    );
-    showDialog(
-      context: context, 
-      builder: (BuildContext context){
-        return alert;
-      }
-    );
-}
+   
   
 
 

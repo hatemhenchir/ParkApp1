@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       child:  MaterialApp(
         debugShowCheckedModeBanner: false,//supprimer debug icone in the interface
         title: 'flutter app',
-        home: ConsultPark(),
+        home: Intro(),
 
       ),
     );

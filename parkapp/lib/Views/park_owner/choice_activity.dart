@@ -7,7 +7,7 @@ class Choice extends StatelessWidget {
   
 
   List<Mycard> mycard = [
-     Mycard(Icons.local_parking_outlined, 'Park',true , 1),
+     Mycard(Icons.local_parking_outlined, 'Park',false , 1),
      Mycard(Icons.place_outlined, 'Place',false , 2 ),
      Mycard(Icons.book_online, 'Reservation',false ,3),
      Mycard(Icons.person, 'Note Visitor',false , 4),
@@ -88,7 +88,7 @@ class Choice extends StatelessWidget {
 class Mycard{
   final icon ;
   final title ;
-  bool isActive = false ;
+  bool isActive  ;
   int id;
 
   Mycard(this.icon , this.title , this.isActive , this.id);

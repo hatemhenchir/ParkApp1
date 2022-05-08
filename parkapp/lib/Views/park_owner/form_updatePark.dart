@@ -5,8 +5,8 @@ import 'package:flutter_application_2/Views/constants.dart';
 import 'package:provider/provider.dart';
 
 
-class FormAddPark extends StatelessWidget {
-  const FormAddPark({Key? key}):super(key: key);
+class FormUpdatePark extends StatelessWidget {
+  const FormUpdatePark({Key? key}):super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class FormAddPark extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.teal,
         title: const Text(
-          "Add Parking" , 
+          "Update Parking" , 
           textAlign: TextAlign.center,),
       ),
     
@@ -35,21 +35,14 @@ class FormAddPark extends StatelessWidget {
             
             children: const [
               SizedBox(height: 20,),
-              //Text(
-               // "Add Parking" , 
-                // style: TextStyle(
-                // color: Colors.black,
-                // fontSize: 30,
-                // fontWeight: FontWeight.bold,
-                // ),
-              // ),
+              
               SizedBox(height: 5,),
-               Text(
-               "Complete your parking details ",
-               textAlign: TextAlign.center,
-               style: TextStyle(fontSize: 25),
+               //Text(
+               //"Complete your parking details ",
+               //textAlign: TextAlign.center,
+              // style: TextStyle(fontSize: 25),
                
-               ),
+              // ),
               SizedBox(height: 5,),
                Padding(padding: EdgeInsets.symmetric(vertical: 15)),
                SignForm(),
@@ -80,7 +73,6 @@ class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
   
   
-  
   String? tarif;
   
   final List<String> errors = [];
@@ -108,7 +100,7 @@ class _SignFormState extends State<SignForm> {
             _formKey.currentState!.save();
           }
         } ,
-        child: const Text('  Add  ',) ,
+        child: const Text('  Save  ',) ,
         
         style: TextButton.styleFrom(
           primary: Colors.white,
@@ -136,10 +128,10 @@ class _SignFormState extends State<SignForm> {
             return TextFormField(
             
               
-
-              onChanged: (newValue) => tarif = newValue,
-              
-
+              onSaved: (newValue) => tarif = newValue,
+              onChanged: (value){
+                 
+               },
               
              decoration: InputDecoration(
               labelText: "Tarif",

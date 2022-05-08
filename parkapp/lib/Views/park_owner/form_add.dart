@@ -136,10 +136,15 @@ class _SignFormState extends State<SignForm> {
             return TextFormField(
             
               
-
+<<<<<<<< HEAD:ParkApp/parkapp/lib/Views/park_owner/form_add.dart
               onChanged: (newValue) => tarif = newValue,
               
-
+========
+              onSaved: (newValue) => tarif = newValue,
+              onChanged: (value){
+                 
+               },
+>>>>>>>> f1617f0b1813135c2bad14294d1954e5065506e6:parkapp/lib/Views/park_owner/form_add.dart
               
              decoration: InputDecoration(
               labelText: "Tarif",

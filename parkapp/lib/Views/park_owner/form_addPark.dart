@@ -80,7 +80,6 @@ class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
   
   
-  
   String? tarif;
   
   final List<String> errors = [];
@@ -136,10 +135,10 @@ class _SignFormState extends State<SignForm> {
             return TextFormField(
             
               
-
-              onChanged: (newValue) => tarif = newValue,
-              
-
+              onSaved: (newValue) => tarif = newValue,
+              onChanged: (value){
+                 
+               },
               
              decoration: InputDecoration(
               labelText: "Tarif",

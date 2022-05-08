@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Views/visitor/showPark.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,28 @@ import 'package:provider/provider.dart';
   
   }
  class _SearchState extends State<Search> {
+   Set<Marker> _markers = {} ;
+   
+    void _onMapCreated(GoogleMapController controller){
+      setState(() {
+        
+        _markers.add(
+          Marker(
+            markerId: const MarkerId('id-1'),
+            position: LatLng(35.301699 , 11.034399),
+            
+            onTap:  (){
+               Navigator.push(context, MaterialPageRoute(builder:(context)=> const showPark()));
+            },
+            infoWindow: const InfoWindow(
+              title: 'Park',
+              snippet: 'Smart Parking'
+            )
+            ),
+        );
+      });
+    }
+
 
    @override
    Widget build(BuildContext context) {
@@ -30,13 +53,15 @@ import 'package:provider/provider.dart';
              height: MediaQuery.of(context).size.height/1.2,
              width:  MediaQuery.of(context).size.width,
              child:  GoogleMap(
+               onMapCreated: _onMapCreated,
+               markers: _markers,
                 mapType: MapType.normal,
                
                initialCameraPosition: CameraPosition(
                  target:LatLng(
                    currentPosition.latitude,
                    currentPosition.longitude ),
-                 zoom: 30.0,
+                 zoom: 9.0,
                  ) ,
                  zoomGesturesEnabled: true,
                 ),
@@ -46,7 +71,7 @@ import 'package:provider/provider.dart';
        
        
      
-     ):Center(child: CircularProgressIndicator(),)
+     ):const Center(child: CircularProgressIndicator(),)
    );
  }
  }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "410702727834",
+    "project_id": "parkapp-bffd9",
+    "storage_bucket": "parkapp-bffd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410702727834:android:83ceff6773dbf7d37bad23",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410702727834-0snrofd3rfh17cvi8lnonmuakce0bsm3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4uZKgtNK2Pss6Sz6oYxyEmyf93EYfCzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410702727834-0snrofd3rfh17cvi8lnonmuakce0bsm3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

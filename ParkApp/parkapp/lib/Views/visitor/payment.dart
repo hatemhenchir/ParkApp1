@@ -20,7 +20,7 @@ class Payment extends StatelessWidget {
             child: Center(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: Colors.teal,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: const [
                     BoxShadow(

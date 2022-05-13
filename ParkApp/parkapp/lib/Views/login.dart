@@ -88,7 +88,7 @@ class Login extends StatelessWidget {
                        "Sign Up ",
                        style: TextStyle(
                        fontSize: 18,
-                        color: Color.fromARGB(255, 112, 6, 131)
+                        color: Colors.teal
                    ) ,)
                    ),
                    
@@ -166,7 +166,7 @@ class _SignFormState extends State<SignForm> {
         
         style: TextButton.styleFrom(
           primary: Colors.white,
-          backgroundColor: Colors.purple[800],
+          backgroundColor: Colors.teal,
           elevation: 10,
           textStyle: const TextStyle(fontSize: 28),
           

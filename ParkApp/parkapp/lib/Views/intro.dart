@@ -29,20 +29,16 @@ class Intro extends StatelessWidget {
                     "ANPR PARK",
                     style: TextStyle(
                       fontSize: 40,
-                      letterSpacing: 5,
                       color: Colors.purple[800],
+                      
                       fontWeight: FontWeight.bold,
-                      //fontStyle: FontStyle.italic,
-                      //fontFamily: 'cursive'
                     ),
                   ),
                   SizedBox(height: 25,),
                   const Text(
-                    "Welcome to ANPR Park, Let's Park!" , 
+                    "Welcome to ANPR ParK, Let's Park!" , 
                     style: TextStyle (
-                    fontSize: 30 , 
-                    //fontFamily: 'cursive',
-                    fontWeight: FontWeight.bold,
+                    fontSize: 25 , 
                     color: Colors.black87
                     ),
                   ),
@@ -64,6 +60,7 @@ class Intro extends StatelessWidget {
                     style: TextButton.styleFrom(
                       primary: Colors.white,
                       backgroundColor: Colors.purple[800],
+                      
                       elevation: 10,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)
@@ -80,8 +77,7 @@ class Intro extends StatelessWidget {
                       "  Let's Go!  " ,
                       style: TextStyle(
                         fontSize: 20,
-                        //fontFamily: 'cursive',
-                    fontWeight: FontWeight.bold,
+                       
                       ),
                       ) ,
 

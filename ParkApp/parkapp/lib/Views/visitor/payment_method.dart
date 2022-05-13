@@ -16,21 +16,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(
-      //  toolbarHeight: 80,
-      //  backgroundColor: Colors.white,
-       // elevation: 0,
-       // centerTitle: true,
-       // title: const Text(' Payment Method' , 
-       // style: 
-       //  TextStyle(
-        //  fontSize: 18,
-        //  //color: Colors.teal
-        //  color: Color(0XFFB0BEC5),
-        //  ),
-      //    ),
-        
-     // ),
+      
 
       body: Container(
         child: Column (

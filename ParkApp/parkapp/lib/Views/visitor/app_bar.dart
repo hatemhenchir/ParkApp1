@@ -4,10 +4,13 @@ import 'package:flutter_application_2/Views/intro.dart';
 
 
 import 'package:flutter_application_2/Views/login.dart';
+import 'package:flutter_application_2/Views/services/payment_service.dart';
 import 'package:flutter_application_2/Views/visitor/payment.dart';
-import 'package:flutter_application_2/Views/visitor/paymentMethod.dart';
+import 'package:flutter_application_2/Views/visitor/payment_method.dart';
 import 'package:flutter_application_2/Views/visitor/search_park.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -25,13 +28,14 @@ class AppHome extends StatefulWidget {
 
 class _AppHomeState extends State<AppHome> {
   var currentPage = DrawerSections.Find_park;
+  
   @override
   Widget build(BuildContext context) {
     var container ;
     if (currentPage == DrawerSections.Reservation){
       container = Intro();
     } else if (currentPage == DrawerSections.Payment){
-      //container = Payment();
+      container = Payment();
     } else if (currentPage == DrawerSections.Payment_method){
       container = PaymentMethod();
     } else if (currentPage == DrawerSections.Find_park){

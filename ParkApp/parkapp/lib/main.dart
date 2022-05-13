@@ -1,4 +1,3 @@
-//import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/chose_account.dart';
@@ -12,25 +11,16 @@ import 'package:flutter_application_2/Views/park_owner/park.dart';
 import 'package:flutter_application_2/Views/services/geolocator_services.dart';
 import 'package:flutter_application_2/Views/visitor/app_bar.dart';
 import 'package:flutter_application_2/Views/sign.dart';
-
-
-import 'package:flutter_application_2/Views/visitor/payment.dart';
-import 'package:flutter_application_2/Views/visitor/paymentMethod.dart';
-
-import 'package:flutter_application_2/Views/visitor/search_park.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_application_2/Views/park_owner/form_addPark.dart';
 
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
    await Firebase.initializeApp();
   Stripe.publishableKey = 'pk_test_51KxRwtI5r7w4X89756fzSmvtmfTPU2UJn72pNoQRmsHQkbCE3x3TJ5Fb5rGT4qG0hkTR3TrhPvkZHPVcg4msXB1h001C2atZvH';
-
-  
-  
   runApp( MyApp());
 }
 
@@ -42,10 +32,10 @@ class MyApp extends StatelessWidget {
     return FutureProvider(
       create: (context)=>locatorService.getLocation(),
       initialData: null,
-      child:    MaterialApp(
+      child:  MaterialApp(
         debugShowCheckedModeBanner: false,//supprimer debug icone in the interface
         title: 'flutter app',
-        home: Payment(),
+        home: Intro(),
 
       ),
     );

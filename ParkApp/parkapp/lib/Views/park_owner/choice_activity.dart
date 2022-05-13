@@ -18,7 +18,7 @@ class Choice extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xfff6f7f9),
       appBar: AppBar(
-        backgroundColor: Colors.purple[800],
+        backgroundColor: Colors.teal,
         title: const Text("",
         ),
       ),
@@ -57,14 +57,14 @@ class Choice extends StatelessWidget {
                 },
                 child: Card(
                   elevation: 2.5,
-                  color:e.isActive ? Colors.purple[800] : null,
+                  color:e.isActive ? Colors.teal : null,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                         Icon(
                           e.icon,
                           size: 50,
-                          color:e.isActive ? Colors.white :  Colors.purple[800] ,),
+                          color:e.isActive ? Colors.white :  Colors.teal ,),
                         const SizedBox(height: 10,),
                         Text(
                           e.title,

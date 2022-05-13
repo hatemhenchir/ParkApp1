@@ -184,7 +184,7 @@ class _SignFormState extends State<SignForm> {
         
         style: TextButton.styleFrom(
           primary: Colors.white,
-          backgroundColor: Colors.purple[800],
+          backgroundColor: Colors.teal,
           elevation: 10,
           textStyle: const TextStyle(fontSize: 25),
           

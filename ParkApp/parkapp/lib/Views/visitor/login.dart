@@ -5,9 +5,9 @@ import 'package:flutter_application_2/Views/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_2/Views/intro.dart';
+import 'package:flutter_application_2/Views/sign.dart';
 
 import 'package:flutter_application_2/Views/visitor/app_bar.dart';
-import 'package:flutter_application_2/Views/visitor/sign.dart';
 
 
 class Login extends StatelessWidget {
@@ -82,7 +82,7 @@ class Login extends StatelessWidget {
                      child:Text("Sign Up ",
                    style: TextStyle(
                      fontSize: 16,
-                     color: Color(0XFF6A1B9A)
+                     color: Colors.teal
                    ) ,)
                    ),
                    
@@ -150,7 +150,7 @@ class _SignFormState extends State<SignForm> {
         
         style: TextButton.styleFrom(
           primary: Colors.white,
-          backgroundColor: Colors.purple[800],
+          backgroundColor: Colors.teal,
           elevation: 10,
           textStyle: const TextStyle(fontSize: 28),
           

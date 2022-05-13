@@ -51,8 +51,6 @@ dependencies:
   flutter_stripe: ^2.5.0
   get: ^4.6.1
   
-  
-  
 dev_dependencies:
   flutter_test:
     sdk: flutter

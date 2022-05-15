@@ -52,6 +52,8 @@ dependencies:
   get: ^4.6.1
   fluttertoast: ^8.0.9
   place_picker: ^0.9.19
+  google_fonts: ^2.3.2
+  calendar_time: ^2.0.0
   
 
   

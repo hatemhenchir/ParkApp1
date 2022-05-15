@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Views/visitor/parking_details.dart';
 //import 'package:flutter_application_2/Views/visitor/reservation.dart';
 
 import 'package:geolocator/geolocator.dart';
@@ -30,7 +31,7 @@ class _SearchState extends State<Search> {
             position: LatLng(doc.data()["latitude"] , doc.data()["longtitude"]),
             
             onTap:  (){
-               //Navigator.push(context, MaterialPageRoute(builder:(context)=> const Details()));
+               Navigator.push(context, MaterialPageRoute(builder:(context)=> Details()));
             },
             infoWindow:  InfoWindow(
               title: doc.data()["name"],
@@ -54,7 +55,7 @@ class _SearchState extends State<Search> {
     final currentPosition = Provider.of<Position?>(context);
 
     return Scaffold(
-        body: (currentPosition == null)
+        body: (currentPosition != null)
             ? Column(
                 children: [
                   Container(
@@ -65,7 +66,10 @@ class _SearchState extends State<Search> {
                       markers: _markers,
                       mapType: MapType.normal,
                       initialCameraPosition: CameraPosition(
-                        target: LatLng(35.301699, 11.034399),
+                        target: LatLng(
+                          currentPosition.latitude,
+                          currentPosition.longitude
+                          ),
                         zoom: 9.0,
                       ),
                       zoomGesturesEnabled: true,

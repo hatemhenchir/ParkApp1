@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/park_owner/database.dart';
 import 'package:flutter_application_2/Views/park_owner/form_addPark.dart';
 import 'package:flutter_application_2/Views/park_owner/form_updatePark.dart';
+import 'package:flutter_application_2/Views/park_owner/place.dart';
 import 'package:flutter_application_2/Views/park_owner/update_park.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 
 
-class ConsultPark extends StatefulWidget {
-   ConsultPark({ Key? key }) : super(key: key);
+class ParkPlace extends StatefulWidget {
+   ParkPlace({ Key? key }) : super(key: key);
 
    
 
   @override
-  _ConsultParkState createState() => _ConsultParkState();
+  _ParkPlaceState createState() => _ParkPlaceState();
 }
 
-class _ConsultParkState extends State<ConsultPark> {
+class _ParkPlaceState extends State<ParkPlace> {
     late Database db;
   List docs= [];
   initialise(){
@@ -42,12 +42,11 @@ class _ConsultParkState extends State<ConsultPark> {
   Widget build(BuildContext context) {
     
     return Scaffold(
-      
       appBar: AppBar(
         backgroundColor: Colors.teal,
         title: const Text(
           
-          "Consult Parking" , 
+          "Parking exist" , 
           style: TextStyle(
             fontSize:20 ),),
 
@@ -65,10 +64,9 @@ class _ConsultParkState extends State<ConsultPark> {
             
       
       body:RefreshIndicator(
-       
         onRefresh: () async { 
-          //Navigator.push(context,MaterialPageRoute(builder:(context)=> ConsultPark()));
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ConsultPark()));
+          //Navigator.push(context,MaterialPageRoute(builder:(context)=> ParkPlace()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ParkPlace()));
          },
         child: ListView.builder(
                 
@@ -81,48 +79,32 @@ class _ConsultParkState extends State<ConsultPark> {
               motion: ScrollMotion(),
               children: [
                  SlidableAction(
-                  
+                   
                    onPressed:
                    (BuildContext context){
                      //print(docs[index]["id"]);
-                     FirebaseFirestore.instance.collection("parking").doc(docs[index]["id"]).delete();
-                     Navigator.push(context,MaterialPageRoute(builder:(context)=> ConsultPark()));
+                     print(docs[index]["nbre_de_place"]);
+                     //FirebaseFirestore.instance.collection("parking").doc(docs[index]["id"]).delete();
+                     Navigator.push(context,MaterialPageRoute(builder:(context)=> StatePlaces(idPark:docs[index]["id"],nbre_de_place:docs[index]["nbre_de_place"])));
                      
                    },
                    
                     
                    
-                   backgroundColor: Colors.deepOrange,
+                   backgroundColor: Colors.grey,
                    foregroundColor: Colors.white,
-                   icon: Icons.delete,
-                   label: 'Delete',
-                   spacing: 4,
+                   icon: Icons.check,
+                   label: 'consult place',
                    
                    
                 ),
-                SlidableAction(
-                   onPressed:(BuildContext context) {
-                     print(docs[index]["id"]);
-                     Navigator.push(context, MaterialPageRoute(builder:(context)=>  UpdatePark(tarif: docs[index]["tarif"], id: docs[index]["id"],name:docs[index]["name"],nbr_de_place:docs[index]["nbre_de_place"])));
-                   } ,
-                   backgroundColor: Colors.greenAccent,
-                   foregroundColor: Colors.white,
-                   icon: Icons.update_outlined,
-                   label: 'Update',
-                  
-                   ),
+               
                ],
             ),
             
             
             child:ListTile(
-                  title: Text(" Name:  ${docs[index]['name']} \n Rate:   ${docs[index]["tarif"]} DT \n Longitude:   ${docs[index]["longtitude"]} \n Latitude:   ${docs[index]["latitude"]} \n Total nembre places:  ${docs[index]["nbre_de_place"]}" , 
-                  style: GoogleFonts.nunito(
-                                fontSize: 20 ,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w600
-                              ),
-                  ),
+                  title: Text(" Name:  ${docs[index]["name"]} \n Total nembre places:  ${docs[index]["nbre_de_place"]}" , style: TextStyle(fontSize: 20),),
                    minVerticalPadding: 20,
                   
                    
@@ -131,7 +113,6 @@ class _ConsultParkState extends State<ConsultPark> {
                 
 
             );
-            
         }),
       
     ));
@@ -146,5 +127,3 @@ class _ConsultParkState extends State<ConsultPark> {
 
    
   
-
-

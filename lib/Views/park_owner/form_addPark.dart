@@ -44,17 +44,21 @@ class FormAddPark extends StatelessWidget {
                   height: 25,
                 ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-                Image.asset(
-                  "lib/img/add.jpg",
-                  width: 500,
-                  height: 250,
-                ),
+                
                 TextButton(
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => SearchP()));
                     },
-                    child: Text("go  to  map ")),
+                    child: Text("Se localise"),
+                      style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      backgroundColor: Colors.grey,
+                      //elevation: 10,
+                      textStyle: const TextStyle(fontSize: 18),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                    ),
                 const SizedBox(
                   height: 30,
                 ),

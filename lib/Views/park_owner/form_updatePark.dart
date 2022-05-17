@@ -99,7 +99,7 @@ class _SignFormState extends State<SignForm> {
         children: [
          
          
-         Image.asset("lib/img/add.jpg", width: 500,height: 250,),
+         
          buildTarifFormField(),
          const SizedBox(height: 30,),
          

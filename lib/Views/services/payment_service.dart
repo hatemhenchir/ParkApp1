@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
+ bool pay = false;
 class PaymentService extends GetxController {
   Map<String, dynamic>? paymentIntentData;
-
+ 
   Future<void> makePayment(
+    
       {required String amount, required String currency}) async {
     try {
       paymentIntentData = await createPaymentIntent(amount, currency);
@@ -29,17 +30,24 @@ class PaymentService extends GetxController {
       print('exception:$e$s');
     }
   }
+  bool getPay (){
+    return pay ;
+  }
 
   displayPaymentSheet() async {
+   
     try {
       await Stripe.instance.presentPaymentSheet();
+     
       Get.snackbar('Payment', 'Payment Successful',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white,
           margin: const EdgeInsets.all(10),
-          duration: const Duration(seconds: 2));
+          duration: const Duration(seconds: 4));
+          pay = true ;
     } on Exception catch (e) {
+      pay = false ;
       if (e is StripeException) {
         print("Error from Stripe: ${e.error.localizedMessage}");
       } else {
@@ -47,7 +55,9 @@ class PaymentService extends GetxController {
       }
     } catch (e) {
       print("exception:$e");
+      
     }
+    print("payy ${pay}");
   }
 
   //  Future<Map<String, dynamic>>

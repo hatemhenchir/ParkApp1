@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/login.dart';
@@ -7,22 +8,36 @@ import 'package:flutter_application_2/Views/visitor/search_park.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Details extends StatefulWidget {
-  const Details({ Key? key }) : super(key: key);
+  
 
+   Details({ Key? key , required this.id_park , required this.name_park , required this.tarif
+    }) : super(key: key);
+    String id_park;
+    String name_park;
+    String tarif;
   @override
   State<Details> createState() => _DetailsState();
 }
 
 class _DetailsState extends State<Details> {
+   int? place ;
+   
+
+
   @override
   Widget build(BuildContext context) {
+    //print("yuu ${widget.id_park}");
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.blue,
        
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder:(context)=> Confirm()));
+          if((place==0)||(place==null)){
+
+          }else{
+          Navigator.push(context, MaterialPageRoute(builder:(context)=> Confirm(idPark:widget.id_park,tarif: widget.tarif,)));
+          }
         }, 
          label:  Text("Make reservation",
              style: GoogleFonts.nunito(
@@ -36,13 +51,17 @@ class _DetailsState extends State<Details> {
        body: Stack(
          children:<Widget> [
            Container(
+             
              decoration: const BoxDecoration(
                image: DecorationImage(
                 
                  image: NetworkImage("https://thumbs.dreamstime.com/b/smart-parking-illustration-man-user-smartphone-touch-screen-control-car-driving-to-parking-lot-internet-connection-127312550.jpg"),
-                 fit: BoxFit.cover ) ),
+                 
+                 fit: BoxFit.cover )
+                  ),
+                  
            ),
-
+            
            Positioned(
              top: 40.0,
              right: 15.0,
@@ -66,10 +85,11 @@ class _DetailsState extends State<Details> {
                
                child: Container(
                  margin: EdgeInsets.only(top: 10.0),
+                
                  child: Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children:  <Widget>[
-                     Text("Parking",
+                     Text(widget.name_park,
                          style: GoogleFonts.nunito(
                          fontSize:50.0,
                          fontWeight: FontWeight.bold,
@@ -84,7 +104,7 @@ class _DetailsState extends State<Details> {
                    padding: const EdgeInsets.only(left: 20.0 , right: 20.0 , top: 25.0),
                    height:MediaQuery.of(context).size.height * 0.5 ,
                    width: MediaQuery.of(context).size.width,
-                   decoration: const BoxDecoration(
+                   decoration:  BoxDecoration(
                      color: Colors.white,
                      borderRadius: BorderRadius.only(
                        topLeft: Radius.circular(15.0),
@@ -108,7 +128,8 @@ class _DetailsState extends State<Details> {
     );
   }
 
-  Container buildItemRow(BuildContext context) {
+   buildItemRow(BuildContext context) {
+     
     return 
      Container(
        padding: const EdgeInsets.only(bottom: 30.0),
@@ -130,22 +151,30 @@ class _DetailsState extends State<Details> {
                            Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children:  [
+                               
                                 Text("Places available",
                                style: GoogleFonts.nunito(
                                  fontSize: 20,
                                  fontWeight: FontWeight.bold,
-                                 color: Colors.black26
+                                 color: Colors.green[300]
                                  ),),
                                  SizedBox(height: 10.0,),
+                                 
+                                 
                                  Container(
                                      width: MediaQuery.of(context).size.width -150,
-                                     child:  Text(
-                                       "There are 5 slots free",
-                                       style: GoogleFonts.nunito(
-                                         color:Colors.blue,
-                                         fontSize: 14.0,
-                                         fontWeight: FontWeight.bold ),
-                                       ),
+                                     child: StreamBuilder<DocumentSnapshot<Map<String , dynamic>>>(
+                                       stream: FirebaseFirestore.instance.collection("places").doc(widget.id_park).snapshots(),
+                                       builder: (context , snapshot){
+                                         final document = snapshot.data;
+                                         final text = document?.data()?["place_libre"];
+                                         place=text;
+                                         return Text("Tere are ${text } place free");
+                                       },
+                                     )
+                                       
+                                       
+                                       
                                  )
                              ],
                            )
@@ -153,6 +182,7 @@ class _DetailsState extends State<Details> {
                      );
                    
   }
+
   Container buildItemRowPrice(BuildContext context) {
     return 
      Container(
@@ -185,7 +215,7 @@ class _DetailsState extends State<Details> {
                                  Container(
                                      width: MediaQuery.of(context).size.width -150,
                                      child:  Text(
-                                       "2 dt",
+                                       widget.tarif,
                                        style: GoogleFonts.nunito(
                                          color:Colors.blue,
                                          fontSize: 18.0,

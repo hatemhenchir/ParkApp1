@@ -18,36 +18,38 @@ class _SearchState extends State<Search> {
   Set<Marker> _markers = {};
 
   void _onMapCreated(GoogleMapController controller) async {
-    
-    await FirebaseFirestore.instance.collection("parking").snapshots().listen((event) { 
+    await FirebaseFirestore.instance
+        .collection("parking")
+        .snapshots()
+        .listen((event) {
       //_markers={};
       setState(() {
-        
-      
-      for( var doc in event.docs){
-        _markers.add(
-          Marker(
-            markerId:  MarkerId(doc.id),
-            position: LatLng(doc.data()["latitude"] , doc.data()["longtitude"]),
-            
-            onTap:  (){
-               Navigator.push(context, MaterialPageRoute(builder:(context)=> Details()));
-            },
-            infoWindow:  InfoWindow(
-              title: doc.data()["name"],
-              snippet: 'Smart Parking',
-            ),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                                BitmapDescriptor.hueRed)
-            ),
-            
-        );
-      }
-      //print("ahlaaaaaaaaaa ${_markers}");
+        for (var doc in event.docs) {
+          _markers.add(
+            Marker(
+                markerId: MarkerId(doc.id),
+                position:
+                    LatLng(doc.data()["latitude"], doc.data()["longtitude"]),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Details(
+                              id_park: doc.id,
+                              name_park: doc.data()['name'],
+                              tarif: doc.data()['tarif'])));
+                },
+                infoWindow: InfoWindow(
+                  title: doc.data()["name"],
+                  snippet: 'Smart Parking',
+                ),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueRed)),
+          );
+        }
+        //print("ahlaaaaaaaaaa ${_markers}");
       });
     });
-    
-    
   }
 
   @override
@@ -66,10 +68,8 @@ class _SearchState extends State<Search> {
                       markers: _markers,
                       mapType: MapType.normal,
                       initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                          currentPosition.latitude,
-                          currentPosition.longitude
-                          ),
+                        target: LatLng(35.506798,
+                            11.046753),
                         zoom: 9.0,
                       ),
                       zoomGesturesEnabled: true,

@@ -1,40 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_2/Views/constants.dart';
-import 'package:flutter_application_2/Views/park_owner/park.dart';
-
-import 'package:provider/provider.dart';
-
-class UpdatePark extends StatelessWidget {
-  UpdatePark({Key? key, required this.tarif,required this.name, required this.nbr_de_place ,required this.id})
-      : super(key: key);
-  final String tarif;
-  final String id;
-  final String name;
-  final String nbr_de_place;
+import 'package:flutter_application_2/Views/visitor/consult_reservation.dart';
+//import '../park_owner/park.dart';
+class UpdateReservation extends StatelessWidget {
+   UpdateReservation({ Key? key,required this.name,required this.id,required this.plateNumber,required this.phoneNumber}) : super(key: key);
+  String name;
+  String id;
+  String plateNumber;
+  String phoneNumber;
+  //final String tarif;
+  //final String id;
+  //final String name;
+  //final String nbr_de_place;
   final _formKey = GlobalKey<FormState>();
 
-  String? newtarif;
+  String? newPhoneNumber;
   String? newname;
-  String? newNbreDePlace;
+  String? newPlatNumber;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.teal,
-        title: const Text(
-          "Update Parking",
-          textAlign: TextAlign.center,
-        ),
-      ),
+      
       body: Form(
         key: _formKey,
         child: SizedBox(
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 30),
             child: SingleChildScrollView(
               child: Column(children: [
                 const SizedBox(
@@ -74,16 +67,16 @@ class UpdatePark extends StatelessWidget {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  initialValue: tarif,
-                  onChanged: (newValue) => newtarif = newValue,
+                  initialValue: phoneNumber,
+                  onChanged: (newValue) => newPhoneNumber = newValue,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'please Fill tarif input';
+                      return 'please Fill phone number input';
                     }
                   },
                   decoration: InputDecoration(
-                      labelText: "Tarif",
-                      hintText: "enter tarif ",
+                      labelText: "phone  number",
+                      hintText: "enter phone number ",
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 42, vertical: 20),
@@ -104,11 +97,11 @@ class UpdatePark extends StatelessWidget {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  initialValue: nbr_de_place,
-                  onChanged: (newValue) => newNbreDePlace = newValue,
+                  initialValue: plateNumber,
+                  onChanged: (newValue) => newPlatNumber = newValue,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'please Fill nompbre de  place input';
+                      return 'please Fill nombre de  place input';
                     }
                   },
                   decoration: InputDecoration(
@@ -133,17 +126,17 @@ class UpdatePark extends StatelessWidget {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       FirebaseFirestore.instance
-                          .collection("parking")
+                          .collection("reservation")
                           .doc(id)
                           .update({
-                        'tarif': newtarif ?? tarif,
+                        'phone_number': newPhoneNumber ?? phoneNumber,
                         'name':newname ?? name,
-                        'nbre_de_place':newNbreDePlace ?? nbr_de_place
+                        'plate_number':newPlatNumber ?? plateNumber
                       });
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ConsultPark()));
+                              builder: (context) => ConsultReservation()));
                     }
                   },
                   child: const Text(

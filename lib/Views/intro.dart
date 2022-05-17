@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_2/Views/login.dart';
+import 'package:flutter_application_2/Views/visitor/New_login.dart';
 
 class Intro extends StatelessWidget {
   const Intro({Key? key}):super(key: key);
@@ -71,7 +72,7 @@ class Intro extends StatelessWidget {
                     onPressed: (
                       
                     ) {
-                      Navigator.push(context, MaterialPageRoute(builder:(context)=> Login()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=> LoginScreen()));
                     }, 
                     child: const Text(
                       "  Let's Go!  " ,

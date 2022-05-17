@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/login.dart';
 import 'package:flutter_application_2/Views/park_owner/park.dart';
+import 'package:flutter_application_2/Views/park_owner/park_place.dart';
 
 
 
@@ -60,7 +61,7 @@ class Choice extends StatelessWidget {
                   if(e.id==1){
                    Navigator.push(context , MaterialPageRoute(builder: (_)=> ConsultPark()));
                   } else if (e.id==2){
-                    Navigator.push(context , MaterialPageRoute(builder: (_)=> ConsultPark()));
+                    Navigator.push(context , MaterialPageRoute(builder: (_)=> ParkPlace()));
                   } else if (e.id==3){
                     Navigator.push(context , MaterialPageRoute(builder: (_)=> ConsultPark()));
                   } else if (e.id==4){

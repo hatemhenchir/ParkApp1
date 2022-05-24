@@ -140,7 +140,16 @@ class UpdatePark extends StatelessWidget {
                         'name':newname ?? name,
                         'nbre_de_place':newNbreDePlace ?? nbr_de_place
                       });
+                      FirebaseFirestore.instance
+                          .collection("places")
+                          .doc(id)
+                          .update({
+                        'place_libre':newNbreDePlace ?? nbr_de_place ,
+                        for (int i = 0 ; i < int.parse(newNbreDePlace ?? nbr_de_place) ; i ++) "$i": false 
+
+                      });
                       Navigator.push(
+
                           context,
                           MaterialPageRoute(
                               builder: (context) => ConsultPark()));

@@ -1,26 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/park_owner/database.dart';
+import 'package:flutter_application_2/Views/park_owner/databaseRserv.dart';
 import 'package:flutter_application_2/Views/park_owner/form_addPark.dart';
 
 import 'package:flutter_application_2/Views/park_owner/place.dart';
+import 'package:flutter_application_2/Views/park_owner/showReservation.dart';
 import 'package:flutter_application_2/Views/park_owner/update_park.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 
 
-class ParkPlace extends StatefulWidget {
-   ParkPlace({ Key? key }) : super(key: key);
+class Reserv extends StatefulWidget {
+   Reserv({ Key? key }) : super(key: key);
 
    
 
   @override
-  _ParkPlaceState createState() => _ParkPlaceState();
+  _ReservState createState() => _ReservState();
 }
 
-class _ParkPlaceState extends State<ParkPlace> {
+class _ReservState extends State<Reserv> {
     late Database db;
   List docs= [];
   initialise(){
@@ -68,7 +71,7 @@ class _ParkPlaceState extends State<ParkPlace> {
       body:RefreshIndicator(
         onRefresh: () async { 
           //Navigator.push(context,MaterialPageRoute(builder:(context)=> ParkPlace()));
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ParkPlace()));
+         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ParkPlace()));
          },
         child: ListView.separated(
                 
@@ -77,17 +80,21 @@ class _ParkPlaceState extends State<ParkPlace> {
           return Slidable(
             key: ValueKey(index),
             startActionPane: ActionPane(
-              //dismissible: DismissiblePane(onDismissed: (){},),
+           
               motion: ScrollMotion(),
               children: [
                  SlidableAction(
+
                    
                    onPressed:
                    (BuildContext context){
                      //print(docs[index]["id"]);
-                     print(docs[index]["nbre_de_place"]);
+                     //print(docs[index]["nbre_de_place"]);
                      //FirebaseFirestore.instance.collection("parking").doc(docs[index]["id"]).delete();
-                     Navigator.push(context,MaterialPageRoute(builder:(context)=> StatePlaces(idPark:docs[index]["id"],nbre_de_place:docs[index]["nbre_de_place"])));
+                    
+                    print(docs[index]["id"]);
+                   
+                     Navigator.push(context,MaterialPageRoute(builder:(context)=> ShowReservation(idPark:docs[index]["id"])));
                      
                    },
                    
@@ -96,7 +103,7 @@ class _ParkPlaceState extends State<ParkPlace> {
                    backgroundColor: Colors.black45,
                    foregroundColor: Colors.white,
                    icon: Icons.check,
-                   label: 'consult place',
+                   label: 'Show Reservation',
                    
                    
                 ),
@@ -107,7 +114,7 @@ class _ParkPlaceState extends State<ParkPlace> {
             
             child:ListTile(
                tileColor: Colors.grey.shade200,
-                  title: Text(" Name:  ${docs[index]["name"]} \n Total nembre places:  ${docs[index]["nbre_de_place"]}" , style: TextStyle(fontSize: 20),),
+                  title: Text(" Name:  ${docs[index]["name"]} " , style: TextStyle(fontSize: 20),),
                    minVerticalPadding: 20,
                   
                    

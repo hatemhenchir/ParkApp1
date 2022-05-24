@@ -7,8 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_2/Views/constants.dart';
 import 'package:flutter_application_2/Views/park_owner/mark.dart';
 import 'package:flutter_application_2/Views/park_owner/park.dart';
-
+import 'package:uuid/uuid.dart';
 import 'package:provider/provider.dart';
+
 
 class FormAddPark extends StatelessWidget {
   FormAddPark({Key? key, tarif, this.longtitude, this.latitude})
@@ -21,7 +22,7 @@ class FormAddPark extends StatelessWidget {
   String? newlatitude;
   String? newnbrplace;
   String? name;
-
+  final myuuid = Uuid().v4();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -223,7 +224,7 @@ class FormAddPark extends StatelessWidget {
                       if (current_user != null)
                         FirebaseFirestore.instance
                             .collection("parking")
-                            .doc()
+                            .doc(myuuid)
                             .set({
                           'name': name,
                           'tarif': newTarif,
@@ -231,6 +232,11 @@ class FormAddPark extends StatelessWidget {
                           'latitude': latitude,
                           'nbre_de_place': newnbrplace,
                           'user': '/utilisateur/' + current_user.uid
+                        });
+                        FirebaseFirestore.instance.collection("places").doc(myuuid).set({ 
+                          "place_libre" : int.parse(newnbrplace!) , for (int i = 0 ; i< int.parse(newnbrplace!) ; i++) "$i": false 
+
+                        
                         });
                       Navigator.push(
                           context,

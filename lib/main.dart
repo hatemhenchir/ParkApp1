@@ -9,7 +9,8 @@ import 'package:flutter_application_2/Views/park_owner/choice_activity.dart';
 
 import 'package:flutter_application_2/Views/park_owner/form_addPark.dart';
 import 'package:flutter_application_2/Views/park_owner/mark.dart';
-import 'package:flutter_application_2/Views/park_owner/new.dart';
+
+import 'package:flutter_application_2/Views/park_owner/reserv.dart';
 //import 'package:flutter_application_2/Views/park_owner/newupdate.dart';
 //import 'package:flutter_application_2/Views/login.dart';
 //import 'package:flutter_application_2/Views/park_owner/choice_activity.dart';

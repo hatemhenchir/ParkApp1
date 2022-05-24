@@ -56,7 +56,8 @@ class _ConfirmState extends State<Confirm> {
                     'start_time': startDate,
                     'finish_time': finishDate,
                     'user': "/utilisateur/" + current_user.uid,
-                    'park': "/parking/" + widget.idPark
+                    'park': "/parking/" + widget.idPark,
+                    'valide':""
                   });
                   Navigator.pop(context);
                 } else {

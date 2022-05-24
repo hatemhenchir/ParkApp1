@@ -4,6 +4,7 @@ import 'package:flutter_application_2/Views/login.dart';
 import 'package:flutter_application_2/Views/park_owner/New_Park.dart';
 import 'package:flutter_application_2/Views/park_owner/park.dart';
 import 'package:flutter_application_2/Views/park_owner/park_place.dart';
+import 'package:flutter_application_2/Views/park_owner/reserv.dart';
 
 
 
@@ -64,7 +65,7 @@ class Choice extends StatelessWidget {
                   } else if (e.id==2){
                     Navigator.push(context , MaterialPageRoute(builder: (_)=> ParkPlace()));
                   } else if (e.id==3){
-                    Navigator.push(context , MaterialPageRoute(builder: (_)=> ConsultPark()));
+                    Navigator.push(context , MaterialPageRoute(builder: (_)=> Reserv()));
                   } else if (e.id==4){
                     Navigator.push(context , MaterialPageRoute(builder: (_)=> ConsultPark()));
                   }

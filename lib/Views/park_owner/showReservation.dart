@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/park_owner/New_Park.dart';
 import 'package:flutter_application_2/Views/park_owner/database.dart';
+import 'package:flutter_application_2/Views/park_owner/databaseRserv.dart';
 import 'package:flutter_application_2/Views/park_owner/form_addPark.dart';
 
 import 'package:flutter_application_2/Views/park_owner/update_park.dart';
 import 'package:flutter_application_2/Views/park_owner/visualize_parkMap.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -14,26 +16,33 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 
 
-class ConsultPark extends StatefulWidget {
-   ConsultPark({ Key? key }) : super(key: key);
 
-   
+class ShowReservation extends StatefulWidget {
+  ShowReservation({ Key? key  , required this.idPark }) : super(key: key);
+
+  final String idPark;
+  
 
   @override
-  _ConsultParkState createState() => _ConsultParkState();
+  _ShowReservationState createState() => _ShowReservationState();
 }
 
-class _ConsultParkState extends State<ConsultPark> {
-    late Database db;
+class _ShowReservationState extends State<ShowReservation> {
+  
+    late DatabaseReserv db;
   List docs= [];
-  initialise(){
-    db = Database();
+  String id = "";
+  initialise( ){
+    db = DatabaseReserv(idPark: widget.idPark,);
     db.initiliase();
+   
     db.read().then((value) => {
       setState(() {
       docs = value;
+      
     })
     },);
+    
    
     
   }
@@ -42,7 +51,11 @@ class _ConsultParkState extends State<ConsultPark> {
     super.initState();
     initialise();
   }
+
+  
+
   Widget build(BuildContext context) {
+    
     
     return Scaffold(
        backgroundColor: Colors.white,    
@@ -76,9 +89,10 @@ class _ConsultParkState extends State<ConsultPark> {
       
       body:RefreshIndicator(
         
+        
         onRefresh: () async { 
           //Navigator.push(context,MaterialPageRoute(builder:(context)=> ConsultPark()));
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => NewConsultPark()));
+        //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => NewConsultPark()));
          },
         child: ListView.separated(
          
@@ -95,32 +109,19 @@ class _ConsultParkState extends State<ConsultPark> {
                 motion: StretchMotion(),
                 children: [
                   
-                  SlidableAction(
-                     onPressed:(BuildContext context) {
-                       print(docs[index]["id"]);
-                       Navigator.push(context, MaterialPageRoute(builder:(context)=>  UpdatePark(tarif: docs[index]["tarif"], id: docs[index]["id"],name:docs[index]["name"],nbr_de_place:docs[index]["nbre_de_place"])));
-                       
-                     } ,
-                     backgroundColor: Colors.greenAccent,
-                     foregroundColor: Colors.white,
-                     icon: Icons.update_outlined,
-                     label: 'Update',
-                     
-                    
-                     ),
+              
                  ],
               ),
               endActionPane: ActionPane(
    motion: StretchMotion(),
                 children: [
-                   SlidableAction(
+                  SlidableAction(
                     
                      onPressed:
                      (BuildContext context){
                        //print(docs[index]["id"]);
                        FirebaseFirestore.instance.collection("parking").doc(docs[index]["id"]).delete();
-                       FirebaseFirestore.instance.collection("places").doc(docs[index]["id"]).delete();
-                       Navigator.push(context,MaterialPageRoute(builder:(context)=> ConsultPark()));
+                      // Navigator.push(context,MaterialPageRoute(builder:(context)=> ConsultPark()));
                        
                      },
             
@@ -139,7 +140,7 @@ class _ConsultParkState extends State<ConsultPark> {
               child:ListTile(
                 tileColor: Colors.grey.shade200,
                 
-                    title: Text(" Name:  ${docs[index]['name']} \n Fees:   ${docs[index]["tarif"]} DT \n Total nembre places:  ${docs[index]["nbre_de_place"]}" , 
+                    title: Text(" Name:  ${docs[index]['name']} \n Plate number:   ${docs[index]["plate_number"]}  \n Phone number:  ${docs[index]["phone_number"]} \n Start time:   ${docs[index]["start_time"]} \n Finish time:   ${docs[index]["finish_time"]}" , 
                     style: GoogleFonts.nunito(
                                   fontSize: 20 ,
                                   color: Colors.black87,
@@ -147,9 +148,22 @@ class _ConsultParkState extends State<ConsultPark> {
                                 ),
                     ),
                      minVerticalPadding: 20,
-                    
                      
-                    //trailing: Text("Adresse: "+docs[index]['adresse'] ,  style: TextStyle(fontSize: 20)),
+                    trailing: FloatingActionButton(
+                     onPressed: () async {
+                      
+                       FirebaseFirestore.instance.collection("reservation").doc(docs[index]['id']).update({
+                        "State":"valide"
+                       });
+  
+                     },
+                      child: Text("valid"),
+                      backgroundColor: Colors.pink,),
+
+                     
+                      
+                      
+                   
                   ),
                   
           

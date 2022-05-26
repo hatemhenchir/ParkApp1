@@ -31,13 +31,17 @@ class _SearchState extends State<Search> {
                 position:
                     LatLng(doc.data()["latitude"], doc.data()["longtitude"]),
                 onTap: () {
+                  print(" maaaaa ${doc.data()['nbre_de_place']}");
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => Details(
                               id_park: doc.id,
                               name_park: doc.data()['name'],
-                              tarif: doc.data()['tarif'])));
+                              tarif: doc.data()['tarif'],
+                             nombre_place:doc.data()['nbre_de_place'],
+                              )
+                              ));
                 },
                 infoWindow: InfoWindow(
                   title: doc.data()["name"],
@@ -50,6 +54,7 @@ class _SearchState extends State<Search> {
         //print("ahlaaaaaaaaaa ${_markers}");
       });
     });
+
   }
 
   @override

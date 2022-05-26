@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/intro.dart';
+import 'package:flutter_application_2/Views/visitor/parking_details.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -15,10 +17,11 @@ var startDate;
 var finishDate;
 
 class Confirm extends StatefulWidget {
-  Confirm({Key? key, required this.idPark, required this.tarif})
+  Confirm({Key? key, required this.idPark, required this.tarif , required this.placelibre})
       : super(key: key);
   String idPark;
   String tarif;
+  List placelibre;
 
   @override
   State<Confirm> createState() => _ConfirmState();
@@ -31,8 +34,13 @@ class _ConfirmState extends State<Confirm> {
   String? PlateNumber;
   String? name;
   String? phoneNumber;
+
+ 
+
+  List <dynamic> items = placelibre;
+  String? selectedItem ;
   @override
-  @override
+
   Widget build(BuildContext context) {
     final PaymentService controller = PaymentService();
     return Scaffold(
@@ -209,6 +217,20 @@ class _ConfirmState extends State<Confirm> {
                               ],
                             ),
                           ),
+                          Container(
+                            child: DropdownButton<String>(
+                              value:selectedItem,
+                              items: items.map((item) => 
+                              DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(item),
+                                )
+                                ).toList(),
+                                onChanged: (item)=> setState(() {
+                                  selectedItem = item;
+                                  print("$selectedItem");
+                                }),  ),
+                          )
                         ],
                       )
                     ],
@@ -349,7 +371,8 @@ class _ConfirmState extends State<Confirm> {
                       ),
                     ],
                   ),
-                )
+                ),
+                
               ],
             ),
           ),

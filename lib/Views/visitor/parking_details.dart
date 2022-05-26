@@ -7,28 +7,34 @@ import 'package:flutter_application_2/Views/visitor/confirm.dart';
 
 import 'package:flutter_application_2/Views/visitor/search_park.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+ List placelibre = [] ;
 class Details extends StatefulWidget {
   
 
-   Details({ Key? key , required this.id_park , required this.name_park , required this.tarif
+   Details({ Key? key , required this.id_park , required this.name_park , required this.tarif  , required this.nombre_place
     }) : super(key: key);
     String id_park;
     String name_park;
     String tarif;
+    String nombre_place;
+    
+   
+    
   @override
   State<Details> createState() => _DetailsState();
 }
 
 class _DetailsState extends State<Details> {
    int? place ;
+  
    
 
 
   @override
   Widget build(BuildContext context) {
-    //print("yuu ${widget.id_park}");
+    placelibre.clear();
     return Scaffold(
+     
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.green.shade300,
@@ -37,7 +43,7 @@ class _DetailsState extends State<Details> {
           if((place==0)||(place==null)){
 
           }else{
-          Navigator.push(context, MaterialPageRoute(builder:(context)=> Confirm(idPark:widget.id_park,tarif: widget.tarif,)));
+          Navigator.push(context, MaterialPageRoute(builder:(context)=> Confirm(idPark:widget.id_park,tarif: widget.tarif, placelibre:placelibre )));
           }
         }, 
          label:  Text("Make reservation",
@@ -119,6 +125,7 @@ class _DetailsState extends State<Details> {
                          buildItemRow(context),
                          buildItemRowPrice(context)
                        ]
+
                        
                      ),
                    ),
@@ -167,11 +174,20 @@ class _DetailsState extends State<Details> {
                                      width: MediaQuery.of(context).size.width -150,
                                      child: StreamBuilder<DocumentSnapshot<Map<String , dynamic>>>(
                                        stream: FirebaseFirestore.instance.collection("places").doc(widget.id_park).snapshots(),
-                                       builder: (context , snapshot){
+                                       builder: (context , snapshot ){
                                          final document = snapshot.data;
+                                        
                                          final text = document?.data()?["place_libre"];
-                                         place=text;
-                                         return Text("There are ${text } places free",
+                                         for(int i=0 ; i<int.parse(widget.nombre_place) ; i++) {
+                                           if (document?.data()!["$i"] == false) {
+                                              placelibre.add("$i");
+                                              print("$placelibre");
+                                           }
+                                         }
+                                         
+                                           place = text ;
+                                        
+                                         return Text("There are ${text } places free \n places : ${placelibre}",
                                          style: GoogleFonts.nunito(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,

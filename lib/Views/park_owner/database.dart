@@ -12,6 +12,7 @@ class Database {
     var current_user= FirebaseAuth.instance.currentUser;
     try{
       querySnapshot = 
+      
          await  firestore.collection('parking').where("user",isEqualTo: "/utilisateur/"+current_user!.uid).get()   ;
       if(querySnapshot.docs.isNotEmpty){
         for(var doc in querySnapshot.docs.toList() ){

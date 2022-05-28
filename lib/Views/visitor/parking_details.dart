@@ -18,7 +18,7 @@ class Details extends StatefulWidget {
     String tarif;
     String nombre_place;
     
-   
+  
     
   @override
   State<Details> createState() => _DetailsState();
@@ -27,12 +27,30 @@ class Details extends StatefulWidget {
 class _DetailsState extends State<Details> {
    int? place ;
   
-   
-
+   var listPlaceReservation=[];
+ @override
+   void initState(){
+     super.initState();
+     placelibre.clear();
+     
+   }
+   void getReservationPlace()async {
+     await FirebaseFirestore.instance.collection("reservation").where("park",isEqualTo: "/parking/"+widget.id_park).snapshots().listen((event) {
+       for(var i in event.docs){
+         //print("docs=${i.data()["idPlace"]}");
+         if(listPlaceReservation.contains(i.data()["idPlace"])==false){
+           listPlaceReservation.add(i.data()["idPlace"]);
+         }
+       }
+       print("listplace=$listPlaceReservation");
+     }) ;
+   }
 
   @override
   Widget build(BuildContext context) {
-    placelibre.clear();
+    getReservationPlace();
+    
+    
     return Scaffold(
      
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -175,13 +193,16 @@ class _DetailsState extends State<Details> {
                                      child: StreamBuilder<DocumentSnapshot<Map<String , dynamic>>>(
                                        stream: FirebaseFirestore.instance.collection("places").doc(widget.id_park).snapshots(),
                                        builder: (context , snapshot ){
+                                         
                                          final document = snapshot.data;
                                         
                                          final text = document?.data()?["place_libre"];
                                          for(int i=0 ; i<int.parse(widget.nombre_place) ; i++) {
-                                           if (document?.data()!["$i"] == false) {
+                                           if (document?.data()!["$i"] == false ) {
+                                             if(placelibre.contains("$i")==false && listPlaceReservation.contains("$i")==false ){
                                               placelibre.add("$i");
                                               print("$placelibre");
+                                             }
                                            }
                                          }
                                          

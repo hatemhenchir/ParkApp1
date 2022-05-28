@@ -33,6 +33,9 @@ class PaymentService extends GetxController {
   bool getPay (){
     return pay ;
   }
+  void setPay(newEtat){
+    pay=newEtat;
+  }
 
   displayPaymentSheet() async {
    

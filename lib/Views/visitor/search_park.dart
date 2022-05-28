@@ -62,7 +62,7 @@ class _SearchState extends State<Search> {
     final currentPosition = Provider.of<Position?>(context);
 
     return Scaffold(
-        body: (currentPosition != null)
+        body: (currentPosition == null)
             ? Column(
                 children: [
                   SingleChildScrollView(
@@ -75,8 +75,8 @@ class _SearchState extends State<Search> {
                         mapType: MapType.normal,
                         initialCameraPosition: CameraPosition(
                           target: LatLng(
-                           currentPosition.latitude,
-                            currentPosition.longitude),
+                           13.5,
+                            35.0),
                           zoom: 9.0,
                         ),
                         zoomGesturesEnabled: true,

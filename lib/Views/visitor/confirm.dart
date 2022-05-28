@@ -50,11 +50,16 @@ class _ConfirmState extends State<Confirm> {
           onPressed: () async {
             //Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=> Intro()));
             if (_formKey.currentState!.validate()) {
+
               var pay = controller.getPay();
               var current_user = FirebaseAuth.instance.currentUser;
               if ((current_user != null)) {
-                if (pay == true) {
-                  await FirebaseFirestore.instance
+                await FirebaseFirestore.instance.collection("reservation").where("park" ,isEqualTo: "/parking/"+widget.idPark  ).where("idPlace",isEqualTo: selectedItem).snapshots().listen((event) async {
+                  
+                    
+                  if(event.docs.isEmpty){
+                    if (pay == true) {
+                    await FirebaseFirestore.instance
                       .collection("reservation")
                       .doc()
                       .set({
@@ -65,9 +70,14 @@ class _ConfirmState extends State<Confirm> {
                     'finish_time': finishDate,
                     'user': "/utilisateur/" + current_user.uid,
                     'park': "/parking/" + widget.idPark,
-                    'valide':""
+                    'valide':"",
+                    'idPlace':selectedItem
                   });
+                  
+                    controller.setPay(false);
                   Navigator.pop(context);
+                  
+                  
                 } else {
                   Fluttertoast.showToast(
                       msg: "Please make payment first",
@@ -78,6 +88,23 @@ class _ConfirmState extends State<Confirm> {
                       textColor: Colors.white,
                       fontSize: 13.0);
                 }
+                    
+                  }else{
+                    Fluttertoast.showToast(
+                      msg: "this  place  is  reserved",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 2,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 13.0);
+                  }
+                    
+                  setState(() {
+                    
+                  });
+                });
+                
               }
             }
           },
@@ -137,7 +164,7 @@ class _ConfirmState extends State<Confirm> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        const SizedBox(width: 8),
+                                      //  const SizedBox(width: 8),
                                         Text(
                                           'Select time',
                                           style: TextStyle(fontSize: 16),
@@ -168,7 +195,7 @@ class _ConfirmState extends State<Confirm> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.all(10),
+                            margin: EdgeInsets.all(5),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -182,7 +209,7 @@ class _ConfirmState extends State<Confirm> {
                                
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        minimumSize: Size(80, 30),
+                                        minimumSize: Size(40, 20),
                                         primary: Colors.grey),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
@@ -356,6 +383,7 @@ class _ConfirmState extends State<Confirm> {
                           //print("finish  date  - start date = ${finishDate.runtimeType}");
                           controller.makePayment(
                               amount: (int.parse(widget.tarif)*multipleTarif).toString(), currency: 'eur');
+                              //controller.setPay(false);
                         },
                         child: Text(
                           "Make payment",

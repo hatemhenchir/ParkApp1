@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_application_2/Views/intro.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_application_2/Views/newIntro.dart';
 import 'package:flutter_application_2/Views/park_owner/choice_activity.dart';
 
 
@@ -20,6 +21,7 @@ import 'package:flutter_application_2/Views/services/geolocator_services.dart';
 import 'package:flutter_application_2/Views/visitor/New_login.dart';
 import 'package:flutter_application_2/Views/visitor/New_navBar.dart';
 import 'package:flutter_application_2/Views/visitor/confirm.dart';
+
 
 
 import 'package:flutter_application_2/Views/visitor/payment.dart';
@@ -49,7 +51,7 @@ class MyApp extends StatelessWidget {
       child:   MaterialApp(
         debugShowCheckedModeBanner: false,//supprimer debug icone in the interface
         title: 'flutter app',
-        home: Intro()
+        home: IntroScreen(),
         
 
       ),

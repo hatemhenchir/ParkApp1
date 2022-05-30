@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 //import 'package:toggle_switch/toggle_switch.dart';
 var dataplaces;
@@ -56,17 +57,14 @@ Future <Map<String, bool>> initNumbers()async{
    
     
 
+
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.teal,
-          title:  Text(
-            "Set place state ",
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
+       
         body: SingleChildScrollView(
           child: Center(
+            
             child: Container(
+              
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -82,19 +80,36 @@ Future <Map<String, bool>> initNumbers()async{
   }
 
   Widget MyToggleList(int i) {
-    return Container(
-      child: Column(
-        children: [
-          Text(
-            "Place n° $i : ",
-            style: TextStyle(fontSize: 20),
+    return Row(
+      
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          child: Column(
+            children: [
+              Text(
+                "Place n° $i : ",
+                style:  GoogleFonts.nunito (
+                              letterSpacing: 1,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                              color:  Colors.blueGrey.shade800 ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+             // menuItem(i),
+            ],
           ),
-          SizedBox(
-            height: 10,
-          ),
-          menuItem(i),
-        ],
-      ),
+        
+        ),
+        Column(
+         children:  [
+           menuItem(i),
+           SizedBox(height: 18,)],
+         
+        )
+      ],
     );
   }
 
@@ -144,15 +159,15 @@ Future <Map<String, bool>> initNumbers()async{
               
             });
           },
-          rollingInfoRight: const RollingIconInfo(
+          rollingInfoRight: RollingIconInfo(
             
             icon: Icons.flag,
-             
+             backgroundColor: Colors.red.shade400,
             text: Text('Full'),
           ),
-          rollingInfoLeft: const RollingIconInfo(
+          rollingInfoLeft:  RollingIconInfo(
             icon: Icons.check,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.green.shade400,
             text: Text('Empty'),
           ),
           

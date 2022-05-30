@@ -16,7 +16,7 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   Set<Marker> _markers = {};
-
+  
   void _onMapCreated(GoogleMapController controller) async {
     await FirebaseFirestore.instance
         .collection("parking")
@@ -47,8 +47,10 @@ class _SearchState extends State<Search> {
                   title: doc.data()["name"],
                   snippet: "Fees : ${doc.data()["tarif"]}",
                 ),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueAzure)),
+                
+               icon: BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueAzure)
+                    ),
           );
         }
         //print("ahlaaaaaaaaaa ${_markers}");
@@ -62,7 +64,7 @@ class _SearchState extends State<Search> {
     final currentPosition = Provider.of<Position?>(context);
 
     return Scaffold(
-        body: (currentPosition == null)
+        body: (currentPosition != null)
             ? Column(
                 children: [
                   SingleChildScrollView(
@@ -75,8 +77,8 @@ class _SearchState extends State<Search> {
                         mapType: MapType.normal,
                         initialCameraPosition: CameraPosition(
                           target: LatLng(
-                           13.5,
-                            35.0),
+                           35.5,
+                            11.0),
                           zoom: 9.0,
                         ),
                         zoomGesturesEnabled: true,

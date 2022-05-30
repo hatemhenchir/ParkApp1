@@ -9,6 +9,7 @@ import 'package:flutter_application_2/Views/park_owner/showReservation.dart';
 import 'package:flutter_application_2/Views/park_owner/update_park.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -94,13 +95,13 @@ class _ReservState extends State<Reserv> {
                     
                     print(docs[index]["id"]);
                    
-                     Navigator.push(context,MaterialPageRoute(builder:(context)=> ShowReservation(idPark:docs[index]["id"])));
+                     Navigator.push(context,MaterialPageRoute(builder:(context)=> ShowReservation(idPark:docs[index]["id"],nbre_de_place:docs[index]["nbre_de_place"])));
                      
                    },
                    
                      
                    
-                   backgroundColor: Colors.black45,
+                   backgroundColor: Colors.red.shade200,
                    foregroundColor: Colors.white,
                    icon: Icons.check,
                    label: 'Show Reservation',
@@ -112,9 +113,14 @@ class _ReservState extends State<Reserv> {
             ),
             
             
+
             child:ListTile(
                tileColor: Colors.grey.shade200,
-                  title: Text(" Name:  ${docs[index]["name"]} " , style: TextStyle(fontSize: 20),),
+                  title: Text("Parking name:  ${docs[index]["name"]} " , style: GoogleFonts.nunito (
+                          
+                          fontSize: 21,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black87 ),),
                    minVerticalPadding: 20,
                   
                    

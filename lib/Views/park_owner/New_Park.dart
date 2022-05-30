@@ -39,7 +39,7 @@ class _NewConsultParkState extends State<NewConsultPark> {
       bottomNavigationBar: CurvedNavigationBar(
         key: _NavKey,
         backgroundColor: Colors.white,
-        color: Colors.green.shade300,
+        color: Colors.blueGrey.shade300,
         animationDuration: Duration(microseconds: 0),
         animationCurve: Curves.fastLinearToSlowEaseIn,
         onTap: (index){

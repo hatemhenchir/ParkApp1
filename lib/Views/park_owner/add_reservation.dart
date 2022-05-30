@@ -11,58 +11,81 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../services/payment_service.dart';
-
+List placelibre = [] ;
 var startDate ;
-var finishDate  ;
+var finishDate ;
 
-class Confirm extends StatefulWidget {
-  Confirm(
-      {Key? key,
-      required this.idPark,
-      required this.tarif,
-      required this.placelibre})
-      : super(key: key);
+class AddReserv extends StatefulWidget {
+  AddReserv( {Key? key, 
+   required this.idPark, 
+   required this.nombre_place
+  }) : super(key: key);
   String idPark;
-  String tarif;
-  List placelibre;
+   String nombre_place;
+ /* String tarif;
+  List placelibre;*/
 
   @override
-  State<Confirm> createState() => _ConfirmState();
+  State<AddReserv> createState() => _AddReservState();
 }
 
-class _ConfirmState extends State<Confirm> {
-  DateTime dateTime = DateTime.now();
-  DateTime initial = DateTime.now();
+class _AddReservState extends State<AddReserv> {
 
+  DateTime dateTime = DateTime.now();
   final _formKey = GlobalKey<FormState>();
 
   String? PlateNumber;
   String? name;
   String? phoneNumber;
+  int? place ;
 
-  List<dynamic> items = placelibre;
+  
+
   String? selectedItem;
+  var listPlaceReservation=[];
+@override
+   void initState(){
+     super.initState();
+     placelibre.clear();
+     getReservationPlace();
+   }
+  void getReservationPlace()async {
+     await FirebaseFirestore.instance.collection("reservation").where("park",isEqualTo: "/parking/"+widget.idPark).snapshots().listen((event) {
+       for(var i in event.docs){
+         //print("docs=${i.data()["idPlace"]}");
+         if(listPlaceReservation.contains(i.data()["idPlace"])==false){
+           listPlaceReservation.add(i.data()["idPlace"]);
+         }
+       }
+       print("listplace=$listPlaceReservation");
+     }) ;
+   }
+
   @override
+  
   Widget build(BuildContext context) {
+    getReservationPlace();
     final PaymentService controller = PaymentService();
     return Scaffold(
+      backgroundColor: Colors.grey.shade200,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Colors.green[300],
+          heroTag: 2,
+          backgroundColor: Colors.indigo[800],
           onPressed: () async {
             //Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=> Intro()));
             if (_formKey.currentState!.validate()) {
-              var pay = controller.getPay();
+              
               var current_user = FirebaseAuth.instance.currentUser;
               if ((current_user != null)) {
                 await FirebaseFirestore.instance
                     .collection("reservation")
-                    .where("park", isEqualTo: "/parking/" + widget.idPark)
+                    .where("park", isEqualTo: "/parking/" )
                     .where("idPlace", isEqualTo: selectedItem)
                     .snapshots()
                     .listen((event) async {
                   if (event.docs.isEmpty) {
-                    if (pay == true) {
+                   
                       await FirebaseFirestore.instance
                           .collection("reservation")
                           .doc()
@@ -78,18 +101,9 @@ class _ConfirmState extends State<Confirm> {
                         'idPlace': selectedItem
                       });
 
-                      controller.setPay(false);
+                      
                       Navigator.pop(context);
-                    } else {
-                      Fluttertoast.showToast(
-                          msg: "Please make payment first",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 2,
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          fontSize: 13.0);
-                    }
+                    
                   } else {
                     Fluttertoast.showToast(
                         msg: "this  place  is  reserved",
@@ -112,29 +126,30 @@ class _ConfirmState extends State<Confirm> {
                 color: Colors.white, fontSize: 22, fontWeight: FontWeight.w800),
           ),
         ),
-        appBar: AppBar(
+      /*  appBar: AppBar(
           backgroundColor: Colors.green[300],
           title: Text(
             "Make reservation",
             style: GoogleFonts.nunito(
                 color: Colors.black, fontSize: 22, fontWeight: FontWeight.w800),
           ),
-        ),
+        ),*/
         body: Form(
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Container(
-                  height: 200,
+                  height: 250,
                   color: Colors.grey[200],
-                  padding: EdgeInsets.fromLTRB(10, 25, 10, 10),
+                  padding: EdgeInsets.fromLTRB(10, 60, 10, 10),
                   child: Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
+                            
                             margin: EdgeInsets.all(10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -240,9 +255,29 @@ class _ConfirmState extends State<Confirm> {
                             ),
                           ),
                           Container(
-                            child: DropdownButton<String>(
+                            width: 50,
+                            child: StreamBuilder<DocumentSnapshot<Map<String , dynamic>>>(
+                                       stream: FirebaseFirestore.instance.collection("places").doc(widget.idPark).snapshots(),
+                                       builder: (context , snapshot ){
+                                         
+                                         final document = snapshot.data;
+                                        
+                                         final text = document?.data()?["place_libre"];
+                                         for(int i=0 ; i<int.parse(widget.nombre_place) ; i++) {
+                                           if (document?.data()!["$i"] == false ) {
+                                             if(placelibre.contains("$i")==false && listPlaceReservation.contains("$i")==false ){
+                                              placelibre.add("$i");
+                                              print("$placelibre");
+                                             }
+                                           }
+                                         }
+                                         
+
+                                           place = text ;
+                                          
+                                         return DropdownButton<String>(
                               value: selectedItem,
-                              items: items
+                              items: placelibre
                                   .map((item) => DropdownMenuItem<String>(
                                         value: item,
                                         child: Text(item),
@@ -252,8 +287,15 @@ class _ConfirmState extends State<Confirm> {
                                 selectedItem = item;
                                 print("$selectedItem");
                               }),
-                            ),
-                          )
+                            
+                                         //Text("There are ${text } places free \nPlaces not reserved: \n ${placelibre}",
+                                        
+                                         );
+                                       },
+                                     )
+                                       
+                          ),
+                         
                         ],
                       )
                     ],
@@ -261,7 +303,7 @@ class _ConfirmState extends State<Confirm> {
                 ),
                 Container(
                   height: 1500,
-                  color: Colors.white,
+                  color: Colors.grey.shade200,
                   margin: EdgeInsets.all(12),
                   child: Column(
                     children: [
@@ -289,7 +331,7 @@ class _ConfirmState extends State<Confirm> {
                               borderRadius: BorderRadius.circular(28),
                               gapPadding: 10,
                               borderSide:
-                                  BorderSide(color: Colors.green.shade300),
+                                  BorderSide(color: Colors.indigo.shade800),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(28),
@@ -321,7 +363,7 @@ class _ConfirmState extends State<Confirm> {
                                 borderRadius: BorderRadius.circular(28),
                                 gapPadding: 10,
                                 borderSide:
-                                    BorderSide(color: Colors.green.shade300)),
+                                    BorderSide(color: Colors.indigo.shade800)),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(28),
                               borderSide: const BorderSide(color: Colors.black),
@@ -352,7 +394,7 @@ class _ConfirmState extends State<Confirm> {
                                 borderRadius: BorderRadius.circular(28),
                                 gapPadding: 10,
                                 borderSide:
-                                    BorderSide(color: Colors.green.shade300)),
+                                    BorderSide(color: Colors.indigo.shade800)),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(28),
                               borderSide: const BorderSide(color: Colors.black),
@@ -362,7 +404,7 @@ class _ConfirmState extends State<Confirm> {
                       SizedBox(
                         height: 30,
                       ),
-                      TextButton(
+                   /*   TextButton(
                         onPressed: () {
                           var multipleTarif;
 
@@ -400,7 +442,7 @@ class _ConfirmState extends State<Confirm> {
                           } 
                           else {
                                  controller.makePayment(
-                              amount: (int.parse(widget.tarif) * multipleTarif)
+                              amount: (  multipleTarif)
                                   .toString(),
                               currency: 'eur');
                           }
@@ -412,13 +454,13 @@ class _ConfirmState extends State<Confirm> {
                         ),
                         style: TextButton.styleFrom(
                             primary: Colors.white,
-                            backgroundColor: Colors.green.shade300,
+                            backgroundColor: Colors.indigo.shade800,
                             elevation: 5,
                             textStyle: GoogleFonts.nunito(
                                 fontSize: 20, color: Colors.white),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20))),
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
@@ -431,9 +473,9 @@ class _ConfirmState extends State<Confirm> {
   Widget buildDateTimePicker() => SizedBox(
         height: 180,
         child: CupertinoDatePicker(
-          initialDateTime: DateTime.now(),
+          initialDateTime: dateTime,
           mode: CupertinoDatePickerMode.dateAndTime,
-          minimumDate: initial,
+          minimumDate: dateTime,
           //maximumDate: dateTime,
           //maximumDate: DateTime.parse("2027-06-15"),
           use24hFormat: true,

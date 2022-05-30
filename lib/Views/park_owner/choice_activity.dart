@@ -5,6 +5,8 @@ import 'package:flutter_application_2/Views/park_owner/New_Park.dart';
 import 'package:flutter_application_2/Views/park_owner/park.dart';
 import 'package:flutter_application_2/Views/park_owner/park_place.dart';
 import 'package:flutter_application_2/Views/park_owner/reserv.dart';
+import 'package:flutter_application_2/Views/visitor/New_login.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 
@@ -22,14 +24,14 @@ class Choice extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xfff6f7f9),
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.blueGrey.shade500,
         
       actions: [
           IconButton(
             onPressed:()async{
               
               await FirebaseAuth.instance.signOut();
-              Navigator.push(context, MaterialPageRoute(builder:(context)=> Login()));
+              Navigator.push(context, MaterialPageRoute(builder:(context)=> LoginScreen()));
             
             //setState(() {});
             }, 
@@ -39,14 +41,17 @@ class Choice extends StatelessWidget {
         ],
       ),
 
+
       body: Column(
         children:  <Widget>[
-          const Padding(
+           Padding(
             padding:EdgeInsets.all(30.0),
             child : Text('Choose your activity',
-               style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.black54),
+               style: GoogleFonts.nunito (
+                          letterSpacing: 1,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.blueGrey.shade500 ),
                   ),
                   ),
 
@@ -73,22 +78,25 @@ class Choice extends StatelessWidget {
                 },
                 child: Card(
                   elevation: 2.5,
-                  color:e.isActive ? Colors.teal : null,
+                  color:e.isActive ? Colors.teal : Colors.grey.shade200,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                         Icon(
                           e.icon,
                           size: 50,
-                          color:e.isActive ? Colors.white :  Colors.teal ,),
+                          color:e.isActive ? Colors.black12 :  Colors.blueGrey.shade500 ,),
                         const SizedBox(height: 10,),
                         Text(
                           e.title,
                           style: 
-                             TextStyle(
-                               fontSize: 20,
-                              color: e.isActive ? Colors.white : Colors.grey
-                            ),)
+                          GoogleFonts.nunito (
+                          letterSpacing: 1,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500,
+                          color:  e.isActive ? Colors.white : Colors.blueGrey.shade300 ),
+                             
+                            ),
                   ]),
                 ),
               )).toList(),

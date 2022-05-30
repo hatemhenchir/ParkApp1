@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
  List placelibre = [] ;
 class Details extends StatefulWidget {
   
+  
 
    Details({ Key? key , required this.id_park , required this.name_park , required this.tarif  , required this.nombre_place
     }) : super(key: key);
@@ -77,9 +78,9 @@ class _DetailsState extends State<Details> {
          children:<Widget> [
            Container(
              
-             decoration: const BoxDecoration(
+             decoration: BoxDecoration(
                image: DecorationImage(
-                
+                opacity: 0.75,
                  image:  AssetImage("lib/img/back.jpg"),
                  
                  fit: BoxFit.cover )
@@ -127,7 +128,7 @@ class _DetailsState extends State<Details> {
                  bottom: 0.0,
                  child: Container(
                    padding: const EdgeInsets.only(left: 20.0 , right: 20.0 , top: 25.0),
-                   height:MediaQuery.of(context).size.height * 0.5 ,
+                   height:MediaQuery.of(context).size.height * 0.6 ,
                    width: MediaQuery.of(context).size.width,
                    decoration:  BoxDecoration(
                      color: Colors.white,
@@ -179,7 +180,7 @@ class _DetailsState extends State<Details> {
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children:  [
                                
-                                Text("Places available",
+                                Text("Places available :",
                                style: GoogleFonts.nunito(
                                  fontSize: 20,
                                  fontWeight: FontWeight.bold,
@@ -208,7 +209,7 @@ class _DetailsState extends State<Details> {
                                          
                                            place = text ;
                                         
-                                         return Text("There are ${text } places free \n places : ${placelibre}",
+                                         return Text("There are ${text } places free \nPlaces not reserved: \n ${placelibre}",
                                          style: GoogleFonts.nunito(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
@@ -248,10 +249,11 @@ class _DetailsState extends State<Details> {
                              ),
                            ),
                            SizedBox(width: 10.0,),
+                           
                            Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children:  [
-                                Text("Fees per hour",
+                                Text("Fees per hour :",
                                style: GoogleFonts.nunito(
                                  fontSize: 20,
                                  fontWeight: FontWeight.bold,

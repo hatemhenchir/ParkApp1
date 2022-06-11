@@ -34,14 +34,15 @@ class _IntroScreenState extends State<IntroScreen> {
            ),
 
            Container(
-             height: 500,
+             height: 420,
             
              child: Center(
-               child:Lottie.network(
+               child:Lottie.asset(
                 // 'https://assets1.lottiefiles.com/private_files/lf30_fz6lkjf0.json'
-                'https://assets4.lottiefiles.com/private_files/lf30_b0tjgrdc.json'
+                //'https://assets4.lottiefiles.com/private_files/lf30_b0tjgrdc.json'
                 // 'https://assets3.lottiefiles.com/packages/lf20_5nlrPq.json'  , 
                 // 'https://assets5.lottiefiles.com/private_files/lf30_hsabbeks.json'
+                'lib/img/ocr.json'
                  )
              ),
            ),

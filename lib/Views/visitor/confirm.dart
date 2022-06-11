@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/Views/intro.dart';
+
 import 'package:flutter_application_2/Views/visitor/parking_details.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
+
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -156,7 +156,7 @@ class _ConfirmState extends State<Confirm> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        //  const SizedBox(width: 8),
+                                         const SizedBox(width: 8),
                                         Text(
                                           'Select time',
                                           style: TextStyle(fontSize: 16),
@@ -201,7 +201,7 @@ class _ConfirmState extends State<Confirm> {
                                 ),
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        minimumSize: Size(40, 20),
+                                        minimumSize: Size(80, 30),
                                         primary: Colors.grey),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,

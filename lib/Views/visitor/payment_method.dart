@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/services/payment_service.dart';
-import 'package:flutter_application_2/Views/visitor/app_bar.dart';
+
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 
 class PaymentMethod extends StatefulWidget {
   const PaymentMethod({ Key? key }) : super(key: key);

@@ -1,16 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_2/Views/constants.dart';
+
 import 'package:flutter_application_2/Views/park_owner/mark.dart';
-import 'package:flutter_application_2/Views/park_owner/park.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
-import 'package:provider/provider.dart';
-
+import 'New_Park.dart';
 
 class FormAddPark extends StatelessWidget {
   FormAddPark({Key? key, tarif, this.longtitude, this.latitude})
@@ -27,7 +23,7 @@ class FormAddPark extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    /*  appBar: AppBar(
+      /*  appBar: AppBar(
         backgroundColor: Colors.teal,
         title: const Text(
           "Add Parking",
@@ -46,27 +42,24 @@ class FormAddPark extends StatelessWidget {
                   height: 25,
                 ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-                
                 TextButton(
-                  
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SearchP()));
-                    },
-                    
-                    child: Text("Choose parking place"),
-                      style: TextButton.styleFrom(
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => SearchP()));
+                  },
+                  child: Text("Choose parking place"),
+                  style: TextButton.styleFrom(
                       primary: Colors.white,
                       backgroundColor: Colors.brown.shade400,
                       elevation: 5,
-                      textStyle: GoogleFonts.nunito (
+                      textStyle: GoogleFonts.nunito(
                           letterSpacing: 2,
                           fontSize: 17,
                           fontWeight: FontWeight.w400,
-                          color: Colors.white ),
+                          color: Colors.white),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
-                    ),
+                ),
                 const SizedBox(
                   height: 30,
                 ),
@@ -79,25 +72,24 @@ class FormAddPark extends StatelessWidget {
                   },
                   decoration: InputDecoration(
                       labelText: "Name",
-                      labelStyle: GoogleFonts.nunito (
+                      labelStyle: GoogleFonts.nunito(
                           letterSpacing: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
-                          color: Colors.grey.shade700 ),
+                          color: Colors.grey.shade700),
                       hintText: "enter name ",
-                      hintStyle: GoogleFonts.nunito (
+                      hintStyle: GoogleFonts.nunito(
                           letterSpacing: 1,
                           fontSize: 17,
                           fontWeight: FontWeight.w400,
-                          color: Colors.grey ),
+                          color: Colors.grey),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 18),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           gapPadding: 10,
-                          borderSide:
-                               BorderSide(color: Colors.grey.shade500)),
+                          borderSide: BorderSide(color: Colors.grey.shade500)),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(color: Colors.grey.shade500),
@@ -118,13 +110,13 @@ class FormAddPark extends StatelessWidget {
                   },
                   decoration: InputDecoration(
                       labelText: "Fees",
-                      labelStyle: GoogleFonts.nunito (
+                      labelStyle: GoogleFonts.nunito(
                           letterSpacing: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
-                          color: Colors.grey.shade700 ),
+                          color: Colors.grey.shade700),
                       hintText: "enter Fees",
-                      hintStyle: GoogleFonts.nunito (
+                      hintStyle: GoogleFonts.nunito(
                           letterSpacing: 1,
                           fontSize: 17,
                           fontWeight: FontWeight.w400,
@@ -135,11 +127,10 @@ class FormAddPark extends StatelessWidget {
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           gapPadding: 10,
-                          borderSide:
-                              BorderSide(color: Colors.grey.shade500)),
+                          borderSide: BorderSide(color: Colors.grey.shade500)),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide:  BorderSide(color: Colors.grey.shade500),
+                        borderSide: BorderSide(color: Colors.grey.shade500),
                         gapPadding: 10,
                       )),
                 ),
@@ -163,25 +154,24 @@ class FormAddPark extends StatelessWidget {
 
                   decoration: InputDecoration(
                       labelText: "Longitude",
-                      labelStyle: GoogleFonts.nunito (
+                      labelStyle: GoogleFonts.nunito(
                           letterSpacing: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
-                          color: Colors.grey.shade700 ),
+                          color: Colors.grey.shade700),
                       hintText: "enter Longitude ",
-                      hintStyle: GoogleFonts.nunito (
+                      hintStyle: GoogleFonts.nunito(
                           letterSpacing: 1,
                           fontSize: 17,
                           fontWeight: FontWeight.w400,
-                          color: Colors.grey ),
+                          color: Colors.grey),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 18),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           gapPadding: 10,
-                          borderSide:
-                               BorderSide(color: Colors.grey.shade500)),
+                          borderSide: BorderSide(color: Colors.grey.shade500)),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(color: Colors.grey.shade500),
@@ -208,28 +198,27 @@ class FormAddPark extends StatelessWidget {
 
                   decoration: InputDecoration(
                       labelText: "Latitude",
-                      labelStyle: GoogleFonts.nunito (
+                      labelStyle: GoogleFonts.nunito(
                           letterSpacing: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
-                          color: Colors.grey.shade700 ),
+                          color: Colors.grey.shade700),
                       hintText: "enter Latitude ",
-                      hintStyle: GoogleFonts.nunito (
+                      hintStyle: GoogleFonts.nunito(
                           letterSpacing: 1,
                           fontSize: 17,
                           fontWeight: FontWeight.w400,
-                          color: Colors.grey ),
+                          color: Colors.grey),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 18),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           gapPadding: 10,
-                          borderSide:
-                               BorderSide(color: Colors.grey.shade500)),
+                          borderSide: BorderSide(color: Colors.grey.shade500)),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide:  BorderSide(color: Colors.grey.shade500),
+                        borderSide: BorderSide(color: Colors.grey.shade500),
                         gapPadding: 10,
                       )),
                 ),
@@ -247,13 +236,13 @@ class FormAddPark extends StatelessWidget {
                   },
                   decoration: InputDecoration(
                       labelText: "Toral nembre of  places",
-                      labelStyle: GoogleFonts.nunito (
+                      labelStyle: GoogleFonts.nunito(
                           letterSpacing: 1,
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
-                          color: Colors.grey.shade700 ),
+                          color: Colors.grey.shade700),
                       hintText: "enter total nembre of places ",
-                      hintStyle: GoogleFonts.nunito (
+                      hintStyle: GoogleFonts.nunito(
                           letterSpacing: 1,
                           fontSize: 17,
                           fontWeight: FontWeight.w400,
@@ -264,11 +253,10 @@ class FormAddPark extends StatelessWidget {
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           gapPadding: 10,
-                          borderSide:
-                               BorderSide(color: Colors.grey.shade500)),
+                          borderSide: BorderSide(color: Colors.grey.shade500)),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide:  BorderSide(color: Colors.grey.shade500),
+                        borderSide: BorderSide(color: Colors.grey.shade500),
                         gapPadding: 10,
                       )),
                 ),
@@ -290,15 +278,18 @@ class FormAddPark extends StatelessWidget {
                           'nbre_de_place': newnbrplace,
                           'user': '/utilisateur/' + current_user.uid
                         });
-                        FirebaseFirestore.instance.collection("places").doc(myuuid).set({ 
-                          "place_libre" : int.parse(newnbrplace!) , for (int i = 0 ; i< int.parse(newnbrplace!) ; i++) "$i": false 
-
-                        
-                        });
-                      Navigator.push(
+                      FirebaseFirestore.instance
+                          .collection("places")
+                          .doc(myuuid)
+                          .set({
+                        "place_libre": int.parse(newnbrplace!),
+                        for (int i = 0; i < int.parse(newnbrplace!); i++)
+                          "$i": false
+                      });
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ConsultPark()));
+                              builder: (context) => NewConsultPark()));
                       //print("tarif=${name}");
                     }
                   },
@@ -309,11 +300,11 @@ class FormAddPark extends StatelessWidget {
                       primary: Colors.white,
                       backgroundColor: Colors.brown.shade400,
                       elevation: 10,
-                      textStyle: GoogleFonts.nunito (
+                      textStyle: GoogleFonts.nunito(
                           letterSpacing: 2,
                           fontSize: 17,
                           fontWeight: FontWeight.w400,
-                          color: Colors.white ),
+                          color: Colors.white),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
                 ),

@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_2/Views/visitor/consult_reservation.dart';
+import 'package:flutter_application_2/Views/visitor/New_navBar.dart';
+
 //import '../park_owner/park.dart';
 class UpdateReservation extends StatelessWidget {
    UpdateReservation({ Key? key,required this.name,required this.id,required this.plateNumber,required this.phoneNumber}) : super(key: key);
@@ -14,6 +15,7 @@ class UpdateReservation extends StatelessWidget {
   //final String name;
   //final String nbr_de_place;
   final _formKey = GlobalKey<FormState>();
+
 
   String? newPhoneNumber;
   String? newname;
@@ -133,10 +135,13 @@ class UpdateReservation extends StatelessWidget {
                         'name':newname ?? name,
                         'plate_number':newPlatNumber ?? plateNumber
                       });
-                      Navigator.push(
+                      
+                      
+
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ConsultReservation()));
+                              builder: (context) => HomePageVisitor()));
                     }
                   },
                   child: const Text(

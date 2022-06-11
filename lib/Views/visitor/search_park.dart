@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/visitor/parking_details.dart';
-//import 'package:flutter_application_2/Views/visitor/reservation.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -69,17 +68,21 @@ class _SearchState extends State<Search> {
                 children: [
                   SingleChildScrollView(
                     child: Container(
-                      height: MediaQuery.of(context).size.height / 1.13,
+                      height: MediaQuery.of(context).size.height / 1.12,
                       width: MediaQuery.of(context).size.width,
                       child: GoogleMap(
                         onMapCreated: _onMapCreated,
                         markers: _markers,
                         mapType: MapType.normal,
+                        
+                        myLocationEnabled: true,
+                        myLocationButtonEnabled: true,
+
                         initialCameraPosition: CameraPosition(
                           target: LatLng(
-                           35.5,
-                            11.0),
-                          zoom: 9.0,
+                           currentPosition.latitude,
+                            currentPosition.longitude),
+                          zoom: 12.0,
                         ),
                         zoomGesturesEnabled: true,
                       ),

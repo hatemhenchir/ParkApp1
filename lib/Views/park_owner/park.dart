@@ -2,15 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Views/park_owner/New_Park.dart';
 import 'package:flutter_application_2/Views/park_owner/database.dart';
-import 'package:flutter_application_2/Views/park_owner/form_addPark.dart';
 
 import 'package:flutter_application_2/Views/park_owner/update_park.dart';
-import 'package:flutter_application_2/Views/park_owner/visualize_parkMap.dart';
+
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 
 
@@ -98,7 +96,7 @@ class _ConsultParkState extends State<ConsultPark> {
                   SlidableAction(
                      onPressed:(BuildContext context) {
                        print(docs[index]["id"]);
-                       Navigator.push(context, MaterialPageRoute(builder:(context)=>  UpdatePark(tarif: docs[index]["tarif"], id: docs[index]["id"],name:docs[index]["name"],nbr_de_place:docs[index]["nbre_de_place"])));
+                       Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>  UpdatePark(tarif: docs[index]["tarif"], id: docs[index]["id"],name:docs[index]["name"],nbr_de_place:docs[index]["nbre_de_place"])));
                        
                      } ,
                      backgroundColor: Colors.greenAccent,
@@ -120,7 +118,7 @@ class _ConsultParkState extends State<ConsultPark> {
                        //print(docs[index]["id"]);
                        FirebaseFirestore.instance.collection("parking").doc(docs[index]["id"]).delete();
                        FirebaseFirestore.instance.collection("places").doc(docs[index]["id"]).delete();
-                       Navigator.push(context,MaterialPageRoute(builder:(context)=> ConsultPark()));
+                       Navigator.pushReplacement(context,MaterialPageRoute(builder:(context)=> NewConsultPark()));
                        
                      },
             

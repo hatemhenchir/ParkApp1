@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/Views/intro.dart';
-import 'package:flutter_application_2/Views/visitor/parking_details.dart';
+
+import 'package:flutter_application_2/Views/park_owner/showReservation.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -102,7 +102,9 @@ class _AddReservState extends State<AddReserv> {
                       });
 
                       
-                      Navigator.pop(context);
+                      //Navigator.pop(context);
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ShowReservation(idPark: widget.idPark, nbre_de_place: widget.nombre_place)));
+                      
                     
                   } else {
                     Fluttertoast.showToast(

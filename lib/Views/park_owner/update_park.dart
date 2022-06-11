@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_2/Views/constants.dart';
-import 'package:flutter_application_2/Views/park_owner/park.dart';
-
-import 'package:provider/provider.dart';
+import 'New_Park.dart';
 
 class UpdatePark extends StatelessWidget {
   UpdatePark({Key? key, required this.tarif,required this.name, required this.nbr_de_place ,required this.id})
@@ -144,16 +141,18 @@ class UpdatePark extends StatelessWidget {
                       FirebaseFirestore.instance
                           .collection("places")
                           .doc(id)
-                          .update({
+                          .set({
                         'place_libre':newNbreDePlace ?? nbr_de_place ,
                         for (int i = 0 ; i < int.parse(newNbreDePlace ?? nbr_de_place) ; i ++) "$i": false 
 
                       });
-                      Navigator.push(
+                      
+                      Navigator.pushReplacement(
 
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ConsultPark()));
+                              builder: (context) =>  NewConsultPark()));
+                              //Navigator.pop(context);
                     }
                   },
                   child: const Text(

@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/Views/login.dart';
+
 import 'package:flutter_application_2/Views/visitor/New_navBar.dart';
 import 'package:flutter_application_2/Views/visitor/confirm.dart';
 
-import 'package:flutter_application_2/Views/visitor/search_park.dart';
+
 import 'package:google_fonts/google_fonts.dart';
  List placelibre = [] ;
 class Details extends StatefulWidget {

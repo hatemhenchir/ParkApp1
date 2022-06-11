@@ -1,25 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/Views/intro.dart';
-import 'package:flutter_application_2/Views/newIntro.dart';
-import 'package:flutter_application_2/Views/park_owner/New_Park.dart';
 import 'package:flutter_application_2/Views/park_owner/add_reservation.dart';
-import 'package:flutter_application_2/Views/park_owner/database.dart';
+
 import 'package:flutter_application_2/Views/park_owner/databaseRserv.dart';
-import 'package:flutter_application_2/Views/park_owner/form_addPark.dart';
-
-import 'package:flutter_application_2/Views/park_owner/update_park.dart';
 import 'package:flutter_application_2/Views/park_owner/update_reservation.dart';
-
-
-import 'package:flutter_application_2/Views/park_owner/visualize_parkMap.dart';
-import 'package:flutter_application_2/Views/visitor/update_reservation.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get/get.dart';
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 
 
@@ -64,6 +51,7 @@ class _ShowReservationState extends State<ShowReservation> {
   Widget build(BuildContext context) {
     
     
+    
     return Scaffold(
        backgroundColor: Colors.white,    
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -71,7 +59,7 @@ class _ShowReservationState extends State<ShowReservation> {
           heroTag: 1,
           backgroundColor: Colors.blueGrey.shade400,
           onPressed: () async {
-            Navigator.push(context, MaterialPageRoute(builder:(context)=> AddReserv(idPark:widget.idPark , nombre_place:widget.nbre_de_place)));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=> AddReserv(idPark:widget.idPark , nombre_place:widget.nbre_de_place)));
      
           },
           label: Text(
@@ -106,7 +94,7 @@ class _ShowReservationState extends State<ShowReservation> {
 
                   SlidableAction(
                      onPressed:(BuildContext context) {
-                       Navigator.push(context,MaterialPageRoute(builder:(context)=> updateReserv( idReserv:docs[index]["id"],idPark: widget.idPark, nombre_place:widget.nbre_de_place ,start_time:docs[index]["start_time"], finish_time:docs[index]["finish_time"] ,idPlace:docs[index]["idPlace"] ,plate_number: docs[index]["plate_number"])));
+                       Navigator.pushReplacement(context,MaterialPageRoute(builder:(context)=> updateReserv( idReserv:docs[index]["id"],idPark: widget.idPark, nombre_place:widget.nbre_de_place ,start_time:docs[index]["start_time"], finish_time:docs[index]["finish_time"] ,idPlace:docs[index]["idPlace"] ,plate_number: docs[index]["plate_number"])));
                      
                      } ,
                      backgroundColor: Colors.greenAccent,

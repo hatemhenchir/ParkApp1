@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/Views/park_owner/New_Park.dart';
-
 import 'package:flutter_application_2/Views/park_owner/form_addPark.dart';
 
 import 'package:geolocator/geolocator.dart';
@@ -49,7 +47,7 @@ class _SearchPState extends State<SearchP> {
                         });
                       },
                       initialCameraPosition: CameraPosition(
-                        target: LatLng(35.301699, 11.034399),
+                        target: LatLng(currentPosition.latitude, currentPosition.longitude),
                         zoom: 9.0,
                       ),
                       zoomGesturesEnabled: true,
@@ -64,7 +62,7 @@ class _SearchPState extends State<SearchP> {
                       print("Longtitude = ${markers[0].position.longitude}");
                       print("LAtitiude = ${markers[0].position.latitude}");
 
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => FormAddPark(
